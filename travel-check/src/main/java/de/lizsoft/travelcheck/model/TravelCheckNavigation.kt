@@ -1,0 +1,6 @@
+package de.lizsoft.travelcheck.model
+
+object OpenTravelCheckScreen
+object OpenTravelDailyCheckScreen
+object OpenTravelOnBoardingScreen
+object OpenTravelSignInScreen

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.lizsoft.heart.deeplink">
+
+    <!--Removed transparent to fix the crash : Only fullscreen activities can request orientation-->
+    <application>
+        <activity
+            android:name="de.lizsoft.heart.deeplink.LinkDispatcherActivity"
+            android:label=""
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="${DeeplinksFirebaseScheme}.page.link"
+                    android:scheme="http" />
+                <data
+                    android:host="${DeeplinksFirebaseScheme}.page.link"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

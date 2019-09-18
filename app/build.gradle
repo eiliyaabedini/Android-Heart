@@ -1,0 +1,132 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
+
+android {
+    compileSdkVersion TARGET_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    defaultConfig {
+
+        multiDexEnabled true
+        applicationId "de.lizsoft.app.travelcheck"
+
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+
+        versionCode 5
+        versionName "1.0.0-alpha4"
+
+        //Set Scheme and Host for deeplinks
+        manifestPlaceholders = [
+                TextsAppName           : project.TextsAppName,
+                DeeplinksFirebaseScheme: project.DeeplinksFirebaseScheme
+        ]
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('keystore/debug.keystore')
+            keyAlias 'user0'
+            storePassword "1234567890"
+            keyPassword storePassword
+        }
+        release {
+            storeFile file('keystore/release.keystore')
+            keyAlias RELEASE_KEY_ALIAS
+            storePassword RELEASE_STORE_PASSWORD
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
+
+    testOptions {
+
+        project.android.testVariants.all {
+            if (it.name == "debugAndroidTest") {
+                project.tasks.all { task ->
+                    if (task.name == "processDebugGoogleServices") {
+                        task.enabled = false
+                    } else if (task.name == "processReleaseGoogleServices") {
+                        task.enabled = false
+                    }
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+
+            // Only use this flag on builds you don't proguard or upload to beta-by-crashlytics
+            ext.alwaysUpdateBuildId = false
+
+            ext.enableCrashlytics = false
+        }
+        release {
+            shrinkResources false
+
+            minifyEnabled false
+            signingConfig signingConfigs.release
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+play {
+    serviceAccountCredentials = file("keystore/Google Play Android Developer-9361a4ffa0ae.json")
+    fromTrack = "alpha"
+    artifactDir = file("/repositories/local/heart lib/app/build/outputs/apk/release")
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":travel-check")
+    if (USE_REMOTE_HEART) {
+        implementation "de.lizsoft.heart:heart:$HEART_VERSION"
+        implementation "de.lizsoft.heart:heart-deeplink:$HEART_VERSION"
+        implementation "de.lizsoft.heart:heart-push-notification:$HEART_VERSION"
+        implementation "de.lizsoft.heart:heart-authentication:$HEART_VERSION"
+    } else {
+        implementation project(":heart")
+        implementation project(':heart-deeplink')
+        implementation project(':heart-push-notification')
+        implementation project(':heart-authentication')
+    }
+
+    testImplementation project(':heart-test-helpers')
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+        transitive = true
+    }
+
+    implementation "androidx.multidex:multidex:$MULTIDEX"
+}
+
+afterEvaluate {
+    android.applicationVariants.all {
+        if (it.name == "debug") {
+            Task okbuckTask = project.tasks.getByName("okbuck")
+            Task processResourcesTask = project.tasks.getByName("process${it.name.capitalize()}GoogleServices")
+            okbuckTask.dependsOn(processResourcesTask)
+            project.android.sourceSets."${it.name}".res.srcDirs += "${project.buildDir}/generated/res/google-services/${it.name}/"
+        }
+    }
+}
+
+// This must remain at the bottom of this file until Google work out a better way to do this
+apply plugin: 'com.google.gms.google-services'

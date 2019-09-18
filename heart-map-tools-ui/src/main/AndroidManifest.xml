@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.lizsoft.heart.maptools.ui">
+
+    <application>
+        <activity
+            android:name="de.lizsoft.heart.maptools.ui.de.lizsoft.heart.maptools.ui.search.SearchAddressActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="de.lizsoft.heart.maptools.ui.de.lizsoft.heart.maptools.ui.search.SelectAddressOnMapActivity"
+            android:label="@string/activity_select_address_on_map_title"
+            android:theme="@style/AppTheme.WithWhiteActionBar" />
+    </application>
+
+
+</manifest>

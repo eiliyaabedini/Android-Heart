@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    defaultConfig {
+        buildConfigField "String", "CONFIG_GOOGLE_MAP_API_KEY", "\"${project.ConfigGoogleMapApiKey}\""
+
+        manifestPlaceholders = [
+              ConfigGoogleMapApiKey: project.ConfigGoogleMapApiKey
+        ]
+    }
+}
+
+dependencies {
+    implementation project(':heart-common')
+    implementation project(':heart-common-ui')
+
+    api "com.google.android.gms:play-services-base:$PLAY_SERVICE_BASE"
+    api "com.google.android.gms:play-services-maps:$PLAY_SERVICE_MAP"
+    api 'com.google.maps.android:android-maps-utils:0.5'
+
+    api "com.google.android.gms:play-services-location:$GOOGLE_LOCATION"
+    api ("com.google.android.libraries.places:places:$GOOGLE_PLACES") {
+        exclude group: 'com.github.bumptech.glide'
+    }
+}
+
+ext {
+    moduleName = 'heart-map-tools'
+    moduleDescription = 'map-tools desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

@@ -1,0 +1,45 @@
+android {
+    compileSdkVersion TARGET_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        debug {
+//            minifyEnabled false
+            buildConfigField "String", "CONFIG_APP_TYPE", "\"${project.ConfigAppType}\""
+        }
+        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "CONFIG_APP_TYPE",  "\"test\"" //carpool or test
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    api "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+    api "org.jetbrains.kotlin:kotlin-reflect:$KOTLIN_VERSION"
+
+    testImplementation project(':heart-test-helpers')
+}
+
+repositories {
+    mavenCentral()
+}

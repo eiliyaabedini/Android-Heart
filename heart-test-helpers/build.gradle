@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+
+dependencies {
+    if (USE_REMOTE_HEART) {
+        implementation "de.lizsoft.heart:heart:$HEART_VERSION"
+    } else {
+        implementation project(":heart")
+    }
+
+    api "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION"
+    api "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION"
+    api "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION"
+
+    api 'junit:junit:4.12'
+    api "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+
+    api 'androidx.test:runner:1.2.0'
+
+    api "org.koin:koin-test:$KOIN_VERSION"
+    api "org.hamcrest:hamcrest-library:2.1"
+
+    //To be able to test remove config
+    api "com.google.firebase:firebase-config:$FIREBASE_REMOTE_CONFIG"
+
+    androidTestImplementation "androidx.work:work-testing:$ANDROID_WORD_RXJAVA2"
+    androidTestImplementation "androidx.multidex:multidex:$MULTIDEX"
+}
+
+ext {
+    moduleName = 'heart-test-helpers'
+    moduleDescription = 'heart-test-helpers desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+
+android {
+    defaultConfig {
+        buildConfigField "String", "CONFIG_FIREBASE_GOOGLE_SIGN_IN_WEB_CLIENT_ID", "\"${project.ConfigFirebaseGoogleSignInWebClientId}\""
+    }
+}
+
+dependencies {
+    implementation project(':heart-interfaces')
+
+    implementation 'com.google.firebase:firebase-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+}
+
+ext {
+    moduleName = 'heart-authentication'
+    moduleDescription = 'heart authentication desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

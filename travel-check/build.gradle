@@ -1,0 +1,14 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+
+dependencies {
+    implementation 'com.bandiago.libs:simplegraph:0.0.2'
+    implementation 'com.sackcentury:shinebutton:1.0.0'
+
+    if (USE_REMOTE_HEART) {
+        api "de.lizsoft.heart:heart:$HEART_VERSION"
+    } else {
+        api project(":heart")
+    }
+}

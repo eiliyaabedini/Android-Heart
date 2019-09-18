@@ -1,0 +1,4 @@
+<resources>
+    <string name="state_manager_default_error_message">Sorry, something went wrong</string>
+    <string name="state_manager_default_error_button">Try again</string>
+</resources>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/travel_check_root"
+    style="@style/Widget.MaterialComponents.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:contentPadding="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/travel_check_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/darkGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="City name" />
+
+        <TextView
+            android:id="@+id/travel_check_region_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/travel_check_city_name"
+            app:layout_constraintEnd_toEndOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/travel_check_city_name"
+            app:layout_constraintTop_toTopOf="@+id/travel_check_city_name"
+            tools:text="Region name" />
+
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:id="@+id/travel_check_favourite_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:src="@android:color/darker_gray"
+            app:allow_random_color="false"
+            app:big_shine_color="#FF6666"
+            app:btn_color="@android:color/darker_gray"
+            app:btn_fill_color="#FF6666"
+            app:click_animation_duration="200"
+            app:enable_flashing="false"
+            app:layout_constraintBottom_toBottomOf="@+id/travel_check_weather_icon"
+            app:layout_constraintStart_toEndOf="@+id/travel_check_water"
+            app:layout_constraintTop_toTopOf="@+id/travel_check_weather_icon"
+            app:shine_animation_duration="1500"
+            app:shine_count="8"
+            app:shine_distance_multiple="1.5"
+            app:shine_turn_angle="10"
+            app:siShape="@raw/star"
+            app:small_shine_color="#CC9999"
+            app:small_shine_offset_angle="20" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".7" />
+
+        <TextView
+            android:id="@+id/travel_check_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingTop="8dp"
+            android:textColor="@color/darkGrey"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="999 EUR" />
+
+        <TextView
+            android:id="@+id/travel_check_price_difference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/travel_check_price"
+            tools:text="0 EUR" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/travel_check_weather_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:tint="@color/warning"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/travel_check_city_name"
+            app:srcCompat="@drawable/ic_wb_sunny_black_24dp" />
+
+        <TextView
+            android:id="@+id/travel_check_weather"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/travel_check_weather_icon"
+            app:layout_constraintStart_toEndOf="@+id/travel_check_weather_icon"
+            app:layout_constraintTop_toTopOf="@+id/travel_check_weather_icon"
+            tools:text="99" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/travel_check_water_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:tint="@color/blue"
+            app:layout_constraintBottom_toBottomOf="@+id/travel_check_weather_icon"
+            app:layout_constraintStart_toEndOf="@+id/travel_check_weather"
+            app:layout_constraintTop_toTopOf="@+id/travel_check_weather_icon"
+            app:srcCompat="@drawable/ic_thermometer" />
+
+        <TextView
+            android:id="@+id/travel_check_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/travel_check_water_icon"
+            app:layout_constraintStart_toEndOf="@+id/travel_check_water_icon"
+            app:layout_constraintTop_toTopOf="@+id/travel_check_water_icon"
+            tools:text="99" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

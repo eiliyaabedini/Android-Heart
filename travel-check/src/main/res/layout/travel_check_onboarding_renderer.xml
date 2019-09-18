@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/travel_check_onboarding_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="8dp"
+    app:contentPadding="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/travel_check_onboarding_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Name here" />
+
+        <TextView
+            android:id="@+id/travel_check_onboarding_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:padding="8dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/travel_check_onboarding_name"
+            app:layout_constraintEnd_toStartOf="@+id/travel_check_onboarding_completed"
+            app:layout_constraintStart_toEndOf="@+id/travel_check_onboarding_name"
+            app:layout_constraintTop_toTopOf="@+id/travel_check_onboarding_name"
+            tools:text="value here" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/travel_check_onboarding_completed"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:tint="@color/blue"
+            app:layout_constraintBottom_toBottomOf="@+id/travel_check_onboarding_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/travel_check_onboarding_value"
+            app:srcCompat="@drawable/ic_check_circle_black_24dp"
+            tools:visibility="invisible" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/travel_check_onboarding_flexibility"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:tint="@color/blue"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/travel_check_onboarding_completed"
+            app:srcCompat="@drawable/ic_star_border_black_24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

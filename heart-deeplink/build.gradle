@@ -1,0 +1,26 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    defaultConfig {
+
+        manifestPlaceholders = [
+              DeeplinksFirebaseScheme: project.DeeplinksFirebaseScheme
+        ]
+
+    }
+}
+
+dependencies {
+    implementation project(':heart-common-ui')
+    implementation project(':heart-common')
+}
+
+
+ext {
+    moduleName = 'heart-deeplink'
+    moduleDescription = 'heart desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

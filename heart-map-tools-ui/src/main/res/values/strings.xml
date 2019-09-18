@@ -1,0 +1,9 @@
+<resources>
+    <string name="activity_select_address_on_map_title">Select location</string>
+    <string name="activity_select_address_on_map_fetching_placeholder">....</string>
+    <string name="address_search_screen_current_location">Current location</string>
+    <string name="address_search_screen_select_on_map">Select on map</string>
+    <string name="activity_select_address_on_map_confirm_button">Confirm</string>
+    <string name="address_search_screen_empty_list">Sorry, no search results found</string>
+    <string name="address_search_screen_hint">Search address…</string>
+</resources>

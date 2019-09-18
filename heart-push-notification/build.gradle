@@ -1,0 +1,14 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+
+dependencies {
+    implementation project(':heart-common-ui')
+    implementation project(':heart-common')
+}
+
+ext {
+    moduleName = 'heart-push-notification'
+    moduleDescription = 'heart desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

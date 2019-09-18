@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.lizsoft.app"
+    tools:ignore="MissingLeanbackLauncher">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <application
+        android:name="de.lizsoft.app.AppShell"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Travel Auto check"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
+
+        <!--https://developers.google.com/maps/documentation/android-sdk/config#specify_requirement_for_apache_http_legacy_library-->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+    </application>
+</manifest>

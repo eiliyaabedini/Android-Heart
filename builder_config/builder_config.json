@@ -1,0 +1,23 @@
+{
+  "config": {
+    "appType": "travel-check",
+    "keystoreKeyAlias": "<VALUE>",
+    "keystorePass": "<VALUE>",
+    "keystoreKeyPass": "<VALUE>",
+    "dynamicLinkPrefix": "https://maincarpooling.page.link",
+    "iOSBundleId": "com.maas.MobilityAAS",
+    "iOSAppStoreId": "1448585431",
+    "googleMapApiKey": "",
+
+
+    "firebaseGoogleSignInWebClientId": "286113547616-h3765agddjkpljsaesptlvqo2c0gui91.apps.googleusercontent.com",
+  },
+  "deeplinks": {
+    "firebaseScheme": "mainmobility"
+  },
+  "colors": {
+  },
+  "texts": {
+    "appName": "Xing Experiment"
+  }
+}

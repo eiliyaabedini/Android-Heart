@@ -1,0 +1,13 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+
+dependencies {
+
+}
+
+ext {
+    moduleName = 'heart-viewstatemanager'
+    moduleDescription = 'heart desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

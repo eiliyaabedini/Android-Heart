@@ -1,0 +1,255 @@
+<resources>
+
+    <!-- Theme for invisible activities -->
+    <style name="AppTheme.Transparent" parent="Theme.MaterialComponents">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/darkGrey</item>
+
+        <!-- Colors of buttons -->
+        <item name="colorButtonNormal">@color/primary</item>
+
+        <!-- Windows -->
+        <item name="android:windowBackground">@color/white</item>
+
+        <!-- Enable view transitions -->
+        <item name="android:windowContentTransitions">true</item>
+
+        <!-- active colot for switch -->
+        <item name="colorControlActivated">@color/primary</item>
+    </style>
+
+
+    <!-- Theme for activities with no action bar-->
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Theme for activities with action bar-->
+    <style name="AppTheme.WithActionBarCloseButton" parent="AppTheme">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="homeAsUpIndicator">@drawable/ic_close_black_24dp</item>
+        <item name="toolbarStyle">@style/ActionBarWhite</item>
+    </style>
+
+    <style name="AppTheme.WithWhiteActionBar" parent="AppTheme">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="toolbarStyle">@style/ActionBarWhite</item>
+
+        <item name="titleTextColor">@color/black</item>
+        <item name="actionMenuTextColor">@color/black</item>
+    </style>
+
+    <style name="ActionBarWhite" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/white</item>
+    </style>
+
+
+    <!-- Actionbar/Toolbar -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlHighlight">@color/midGrey</item>
+    </style>
+
+
+    <!-- Buttons -->
+    <style name="AppTheme.ButtonPrimary" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">48dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:backgroundTint">@color/mtrl_btn_bg_primary_color_selector</item>
+    </style>
+
+    <style name="AppTheme.ButtonPrimaryBig" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">60dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:backgroundTint">@color/mtrl_btn_bg_primary_color_selector</item>
+    </style>
+
+    <style name="AppTheme.ButtonSecondary" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:backgroundTint">@color/mtrl_btn_bg_secondary_color_selector</item>
+    </style>
+
+    <style name="AppTheme.ButtonTextPrimary" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="AppTheme.ButtonAction" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:backgroundTint">@color/mtrl_btn_bg_white_color_selector</item>
+    </style>
+
+    <style name="AppTheme.FullScreen">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+
+    <!-- Text Styles -->
+    <style name="AppTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="AppTextAppearance.LargeTitle" parent="AppTextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+    </style>
+
+    <style name="AppTextAppearance.Headline" parent="AppTextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+    </style>
+
+    <style name="AppTextAppearance.Title" parent="AppTextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+    </style>
+
+    <style name="AppTextAppearance.Body" parent="AppTextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+    </style>
+
+    <style name="AppTextAppearance.Subhead" parent="AppTextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+    </style>
+
+    <style name="AppTextAppearance.Footnote" parent="AppTextAppearance">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+    </style>
+
+    <style name="AppTextAppearance.Footnote.Black" parent="AppTextAppearance.Footnote">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppTextAppearance.Footnote.DGrey" parent="AppTextAppearance.Footnote">
+        <item name="android:textColor">@color/darkGrey</item>
+    </style>
+
+    <style name="AppTextAppearance.Footnote.White" parent="AppTextAppearance.Footnote">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppTextAppearance.Title.Black" parent="AppTextAppearance.Title">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppTextAppearance.Title.Grey" parent="AppTextAppearance.Title">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="AppTextAppearance.Title.DGrey" parent="AppTextAppearance.Title">
+        <item name="android:textColor">@color/darkGrey</item>
+    </style>
+
+    <style name="AppTextAppearance.Title.Blue" parent="AppTextAppearance.Title">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="AppTextAppearance.Title.Warning" parent="AppTextAppearance.Title">
+        <item name="android:textColor">@color/warning</item>
+    </style>
+
+    <style name="AppTextAppearance.Title.Success" parent="AppTextAppearance.Title">
+        <item name="android:textColor">@color/success</item>
+    </style>
+
+    <style name="AppTextAppearance.Body.Black" parent="AppTextAppearance.Body">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppTextAppearance.Body.DGrey" parent="AppTextAppearance.Body">
+        <item name="android:textColor">@color/darkGrey</item>
+    </style>
+
+    <style name="AppTextAppearance.Body.Grey" parent="AppTextAppearance.Body">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="AppTextAppearance.Body.Blue" parent="AppTextAppearance.Body">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="AppTextAppearance.Body.Success" parent="AppTextAppearance.Body">
+        <item name="android:textColor">@color/success</item>
+    </style>
+
+    <style name="AppTextAppearance.Body.Error" parent="AppTextAppearance.Body">
+        <item name="android:textColor">@color/error</item>
+    </style>
+
+    <style name="AppTextAppearance.Body.Warning" parent="AppTextAppearance.Body">
+        <item name="android:textColor">@color/warning</item>
+    </style>
+
+    <style name="AppTextAppearance.Subhead.Black" parent="AppTextAppearance.Subhead">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppTextAppearance.Subhead.Blue" parent="AppTextAppearance.Subhead">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="AppTextAppearance.Subhead.Grey" parent="AppTextAppearance.Subhead">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="AppTextAppearance.Subhead.DGrey" parent="AppTextAppearance.Subhead">
+        <item name="android:textColor">@color/darkGrey</item>
+    </style>
+
+    <style name="AppTextAppearance.Headline.Black" parent="AppTextAppearance.Headline">
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

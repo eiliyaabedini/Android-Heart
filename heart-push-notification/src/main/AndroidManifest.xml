@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.lizsoft.heart.pushnotification">
+
+    <application>
+        <service android:name="de.lizsoft.heart.pushnotification.HeartFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
+
+

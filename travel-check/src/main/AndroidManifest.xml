@@ -1,0 +1,40 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.lizsoft.travelcheck">
+
+    <application>
+        <activity
+            android:name="de.lizsoft.travelcheck.travelcheck.TravelCheckActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name="de.lizsoft.travelcheck.dailycheck.TravelDailyCheckActivity"
+            android:label="Daily check"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name="de.lizsoft.travelcheck.landing.TravelLandingActivity"
+            android:label="Travel Auto Check"
+            android:theme="@style/AppTheme.Transparent">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name="de.lizsoft.travelcheck.onboarding.TravelOnBoardingActivity"
+            android:label="OnBoarding"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name="de.lizsoft.travelcheck.signin.TravelSignInActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
+
+    </application>
+</manifest>

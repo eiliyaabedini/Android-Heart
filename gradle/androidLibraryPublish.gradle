@@ -1,0 +1,111 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+version = HEART_VERSION
+group = "de.lizsoft.heart" // Maven Group ID for the artifact
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'javadoc') {
+        task.enabled = false
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    getArchiveClassifier().set('sources')
+}
+
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+
+// Bintray
+Properties properties = new Properties()
+File localPropertiesFile = project.rootProject.file('local.properties')
+if (localPropertiesFile.isFile()) {
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+//    publications = ['mavenStuff']
+    configurations = ['archives']
+
+    pkg {
+        repo = 'heart' // your repo name
+        name = moduleName// has to be same as your library module name
+        desc = moduleDescription
+        userOrg = 'lizsoft'
+        websiteUrl = 'https://github.com/omegasoft7/heart'
+        vcsUrl = 'https://github.com/omegasoft7/heart.git'
+        licenses = ["GPL-3.0"]
+        dryRun = false //[Default: false] Whether to run this as dry-run, without deploying
+        publish = true //[Default: false] Whether version should be auto published after an upload
+        override = true //[Default: false] Whether to override version artifacts already published
+        publicDownloadNumbers = true
+        version {
+//            name = '1.0-Final'
+//            desc = 'Gradle Bintray Plugin 1.0 final'
+            released = new Date()
+            vcsTag = HEART_VERSION
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+
+            gpg {
+                sign = false //Determines whether to GPG sign the files. The default is false
+//                passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
+            }
+        }
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                groupId "de.lizsoft.heart"
+                artifactId moduleName // has to be same as your library module name
+
+                // Add your description here
+                name moduleName
+//                description moduleDescription
+                url 'https://github.com/omegasoft7/heart'
+
+//                // Set your license
+                licenses {
+                    license {
+                        name 'GNU General Public License v3.0'
+                        url 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                    }
+                }
+//                developers {
+//                    developer {
+//                        id 'omegasoft7'
+//                        name 'Farhad'
+//                        email 'omegasoft7@gmail.com'
+//                    }
+//                }
+//                scm {
+//                    connection 'https://github.com/androidCode/time-utils.git'
+//                    developerConnection 'https://github.com/androidCode/time-utils.git'
+//                    url 'https://github.com/androidCode/time-utils'
+//                }
+            }
+        }
+    }
+}

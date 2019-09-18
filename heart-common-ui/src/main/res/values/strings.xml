@@ -1,0 +1,12 @@
+<resources>
+    <string name="common_send_sms">Send SMS</string>
+    <string name="common_call">Call</string>
+    <string name="common_gender_male_hint">Male</string>
+    <string name="common_gender_female_hint">Female</string>
+    <string name="common_gender_unknown_hint">Other</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_ok">OK</string>
+
+    <string name="custom_text_input_default_hint_below" />
+
+</resources>

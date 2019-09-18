@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/select_address_on_map_map_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/select_address_on_map_layout_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/select_address_on_map_pin_view"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/select_address_on_map_map_fragment"
+        app:layout_constraintEnd_toEndOf="@+id/select_address_on_map_map_fragment"
+        app:layout_constraintStart_toStartOf="@+id/select_address_on_map_map_fragment"
+        app:layout_constraintTop_toTopOf="@+id/select_address_on_map_map_fragment">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:background="@drawable/background_select_on_map_pin_textview"
+            app:layout_constraintBottom_toTopOf="@+id/select_address_on_map_pin_imageview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/select_address_on_map_pin_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="2dp"
+                android:textAppearance="@style/AppTextAppearance.Footnote.White" />
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/select_address_on_map_pin_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_location_pin_primary_24dp"
+            android:tint="@color/primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/top_shadow_gradient"
+        app:layout_constraintBottom_toTopOf="@+id/select_address_on_map_layout_button" />
+
+    <TextView
+        android:id="@+id/select_address_on_map_address_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/background_select_on_map_address_textview"
+        android:gravity="center"
+        android:maxHeight="60dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="@string/activity_select_address_on_map_fetching_placeholder"
+        android:textAppearance="@style/AppTextAppearance.Body.Black"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@id/select_address_on_map_map_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/select_address_on_map_layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_address_on_map_map_fragment">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/select_address_on_map_confirm_button"
+            style="@style/AppTheme.ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:text="@string/activity_select_address_on_map_confirm_button" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

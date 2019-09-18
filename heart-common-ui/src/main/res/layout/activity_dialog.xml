@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="de.lizsoft.heart.common.ui.de.lizsoft.heart.common.ui.ui.dialogActivity.DialogActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="40dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/dialog_icon_image"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            tools:minHeight="150dp" />
+
+        <TextView
+            android:id="@+id/dialog_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="normal"
+            tools:text="Check your email\nvic@gmail.com" />
+
+        <TextView
+            android:id="@+id/dialog_description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            tools:text="Click on the special link we just sent to continue" />
+
+        <View
+            android:id="@+id/dialog_divider_view"
+            android:layout_width="80dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/dialog_second_description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
+            android:textColor="@color/darkGrey"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            tools:text="Didn’t receive an email?\nPlease check that it’s the right one and try again" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dialog_close_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp"
+        android:src="@drawable/ic_close_black_24dp" />
+</FrameLayout>

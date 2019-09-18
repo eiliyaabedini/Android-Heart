@@ -1,0 +1,17 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+
+dependencies {
+    implementation project(':heart-interfaces')
+
+    implementation ("androidx.core:core-ktx:$CORE_KTX") {
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
+}
+
+ext {
+    moduleName = 'heart-activitylauncher'
+    moduleDescription = 'heart desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

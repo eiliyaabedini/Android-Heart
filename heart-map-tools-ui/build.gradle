@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+
+dependencies {
+    implementation project(':heart-map-tools')
+    implementation project(':heart-common')
+    implementation project(':heart-common-ui')
+    implementation project(':heart-activitylauncher')
+
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
+}
+
+ext {
+    moduleName = 'heart-map-tools-ui'
+    moduleDescription = 'map-tools-ui desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

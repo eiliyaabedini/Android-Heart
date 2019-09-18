@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+
+dependencies {
+    api project(':heart-interfaces')
+
+    api "com.google.code.gson:gson:$GSON_VERSION"
+
+    api "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    api "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    api "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+
+    api "com.google.firebase:firebase-messaging:$FIREBASE_MESSAGING"
+    implementation "com.google.firebase:firebase-iid:$FIREBASE_IID"
+    implementation "com.google.firebase:firebase-config:$FIREBASE_REMOTE_CONFIG"
+
+    api "com.github.miguelbcr:RxPaparazzo:$RX_PAPARAZZO"
+
+    // WorkManager
+    api ("androidx.work:work-rxjava2:$ANDROID_WORD_RXJAVA2") {
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
+}
+
+ext {
+    moduleName = 'heart-common'
+    moduleDescription = 'heart desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"
