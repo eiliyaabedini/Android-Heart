@@ -108,6 +108,8 @@ dependencies {
 afterEvaluate {
     android.applicationVariants.all {
         if (it.name == "debug") {
+            //prevent google service check in CI
+            project.tasks.getByName("processDebugGoogleServices").enabled = false
             Task okbuckTask = project.tasks.getByName("okbuck")
             Task processResourcesTask = project.tasks.getByName("process${it.name.capitalize()}GoogleServices")
             okbuckTask.dependsOn(processResourcesTask)
