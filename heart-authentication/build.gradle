@@ -4,7 +4,7 @@ apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
 
 android {
     defaultConfig {
-        buildConfigField "String", "CONFIG_FIREBASE_GOOGLE_SIGN_IN_WEB_CLIENT_ID", "\"${project.ConfigFirebaseGoogleSignInWebClientId}\""
+        buildConfigField "String", "HEART_FIREBASE_GOOGLE_SIGN_IN_WEB_CLIENT_ID", "\"${HEART_FIREBASE_GOOGLE_SIGN_IN_WEB_CLIENT_ID}\""
     }
 }
 

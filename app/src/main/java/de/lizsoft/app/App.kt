@@ -1,17 +1,15 @@
 package de.lizsoft.app
 
 import android.app.Application
-import android.content.Context
 import com.facebook.buck.android.support.exopackage.DefaultApplicationLike
-import com.google.firebase.FirebaseApp
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo
 import de.lizsoft.heart.Heart
 import de.lizsoft.heart.activitylauncher.ActivityLauncher
 import de.lizsoft.heart.authentication.HeartAuthentication
 import de.lizsoft.heart.deeplink.HeartDeepLink
-import de.lizsoft.heart.interfaces.koin.Qualifiers
 import de.lizsoft.heart.interfaces.navigator.HeartNavigator
-import de.lizsoft.heart.maptools.ui.HeartMap
+import de.lizsoft.heart.maptools.HeartMap
+import de.lizsoft.heart.maptools.ui.HeartMapUI
 import de.lizsoft.heart.pushnotification.HeartPushNotification
 import de.lizsoft.travelcheck.dailycheck.TravelDailyCheckActivity
 import de.lizsoft.travelcheck.di.travelCheckModule
@@ -25,37 +23,29 @@ import de.lizsoft.travelcheck.signin.TravelSignInActivity
 import de.lizsoft.travelcheck.travelcheck.TravelCheckActivity
 import org.koin.core.KoinComponent
 import org.koin.core.get
-import org.koin.core.module.Module
-import org.koin.dsl.module
 import timber.log.Timber
 
 class App(private val application: Application) : DefaultApplicationLike(), KoinComponent {
 
     private val heartNavigator: HeartNavigator by lazy { get<HeartNavigator>() }
 
-    private val applicationModule: Module = module {
-        single<Context>(Qualifiers.applicationContext) { application.applicationContext }
-        single(Qualifiers.applicationInstance) { application }
-    }
-
     override fun onCreate() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
 
-        FirebaseApp.initializeApp(application.applicationContext)
-
         RxPaparazzo.register(application)
 
         Heart.bind(
+              application = application,
               baseUrl = "https://reisen.lastminute.de/",
               modules = listOf(
-                    applicationModule,
                     travelCheckModule
               )
         )
         Heart.addOkHttpInterceptors(get<AuthenticationInterceptor>())
-        HeartMap.register(heartNavigator)
+        HeartMap.bind()
+        HeartMapUI.bind(heartNavigator)
         HeartDeepLink.bind {
             heartNavigator.navigate(OpenTravelDailyCheckScreen)
         }

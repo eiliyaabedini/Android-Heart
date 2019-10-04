@@ -3,6 +3,7 @@ package de.lizsoft.heart.maptools.di
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import de.lizsoft.heart.interfaces.koin.Qualifiers
+import de.lizsoft.heart.interfaces.map.service.AddressService
 import de.lizsoft.heart.interfaces.map.service.CurrentLocation
 import de.lizsoft.heart.interfaces.map.service.LocationFulfiller
 import de.lizsoft.heart.interfaces.map.service.PlacesService
@@ -26,7 +27,7 @@ val heartMapUtilsModule: Module = module {
     }
 
     single {
-        Places.initialize(get(Qualifiers.applicationContext), BuildConfig.CONFIG_GOOGLE_MAP_API_KEY)
+        Places.initialize(get(Qualifiers.applicationContext), BuildConfig.HEART_GOOGLE_MAP_API_KEY)
         Places.createClient(get(Qualifiers.applicationContext))
     }
 
@@ -38,4 +39,5 @@ val heartMapUtilsModule: Module = module {
 
     factory<LocationFulfiller> { LocationFulfillerImp(get(Qualifiers.applicationContext)) }
 
+    factory<AddressService> { de.lizsoft.heart.maptools.services.AddressServiceImp(get(), get()) }
 }

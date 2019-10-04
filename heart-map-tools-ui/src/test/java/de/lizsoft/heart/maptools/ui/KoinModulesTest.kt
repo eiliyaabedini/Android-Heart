@@ -1,4 +1,4 @@
-package de.lizsoft.heart
+package de.lizsoft.heart.maptools.ui
 
 import android.app.Application
 import android.content.Context
@@ -8,24 +8,17 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.gson.Gson
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import de.lizsoft.heart.common.GenericErrorHandler
-import de.lizsoft.heart.common.di.heartCommonModule
-import de.lizsoft.heart.common.event.EventManager
-import de.lizsoft.heart.common.implementation.di.heartCommonImplementationModule
-import de.lizsoft.heart.common.implementation.di.heartCommonImplementationModuleWithParams
-import de.lizsoft.heart.common.implementation.firebase.remote.FirebaseRemoteConfigInitializer
 import de.lizsoft.heart.common.presenter.Presenter
-import de.lizsoft.heart.common.ui.di.heartCommonUiModule
-import de.lizsoft.heart.common.ui.factory.DialogFactory
-import de.lizsoft.heart.common.ui.ui.dialogActivity.DialogActivity
-import de.lizsoft.heart.common.ui.ui.dialogActivity.DialogActivityPresenter
-import de.lizsoft.heart.di.heartModule
-import de.lizsoft.heart.interfaces.common.*
-import de.lizsoft.heart.interfaces.common.event.EventTracker
-import de.lizsoft.heart.interfaces.common.event.FirebaseAnalyticsLogger
-import de.lizsoft.heart.interfaces.common.firebase.messaging.FirebaseMessagingDelegate
-import de.lizsoft.heart.interfaces.common.firebase.remote.FirebaseRemoteConfigDelegate
+import de.lizsoft.heart.interfaces.common.ReactiveTransformer
 import de.lizsoft.heart.interfaces.koin.Qualifiers
+import de.lizsoft.heart.interfaces.map.service.AddressService
+import de.lizsoft.heart.interfaces.map.service.CurrentLocation
+import de.lizsoft.heart.interfaces.navigator.HeartNavigator
+import de.lizsoft.heart.maptools.ui.di.heartMapUtilsUiModule
+import de.lizsoft.heart.maptools.ui.search.SearchAddressActivity
+import de.lizsoft.heart.maptools.ui.search.SearchAddressPresenter
+import de.lizsoft.heart.maptools.ui.search.SelectAddressOnMapActivity
+import de.lizsoft.heart.maptools.ui.search.SelectAddressOnMapPresenter
 import de.lizsoft.heart.testhelper.TestReactiveTransformer
 import org.junit.After
 import org.junit.Assert.*
@@ -41,7 +34,6 @@ import org.koin.test.KoinTest
 import org.koin.test.get
 import org.koin.test.inject
 import org.koin.test.mock.declare
-import org.koin.test.mock.declareMock
 
 class KoinModulesTest : KoinTest {
 
@@ -59,22 +51,20 @@ class KoinModulesTest : KoinTest {
             modules(
                   listOf(
                         applicationModule,
-                        heartCommonUiModule,
-                        heartCommonImplementationModule,
-                        heartCommonModule,
-                        heartModule,
-                        heartCommonImplementationModuleWithParams("")
+                        heartMapUtilsUiModule
                   )
             )
         }
 
         declare { factory<ReactiveTransformer> { TestReactiveTransformer() } }
-
-        declareMock<SharedPreferences>()
-        declareMock<Gson>()
-        declareMock<FirebaseRemoteConfig>()
+        declare { factory<CurrentLocation> { mock() } }
+        declare { factory<AddressService> { mock() } }
+        declare { factory<SharedPreferences> { mock() } }
+        declare { factory<Gson> { mock() } }
+        declare { factory<FirebaseRemoteConfig> { mock() } }
         whenever(get<FirebaseRemoteConfig>().fetchAndActivate()).thenReturn(mock())
-        declareMock<FirebaseAnalytics>()
+        declare { factory<FirebaseAnalytics> { mock() } }
+        declare { factory<HeartNavigator> { mock() } }
     }
 
     @After
@@ -83,38 +73,9 @@ class KoinModulesTest : KoinTest {
     }
 
     @Test
-    fun testApplicationModule() {
-        testInjection<Context>(true, Qualifiers.applicationContext)
-        testInjection<Application>(true, Qualifiers.applicationInstance)
-        testInjection<Navigator>(true)
-    }
-
-    @Test
-    fun testHeartCommonModule() {
-        testInjection<EventManager>(true)
-        testInjection<GenericErrorHandler>(true)
-    }
-
-    @Test
-    fun testHeartCommonImplementationModule() {
-        testInjection<ForegroundActivityService>(true)
-        testInjection<FirebaseMessagingDelegate>(false)
-        testInjection<LocalStorageManager>(true)
-        testInjection<FirebaseRemoteConfig>(true)
-        testInjection<FirebaseRemoteConfigDelegate>(true)
-        testInjection<FirebaseRemoteConfigInitializer>(true)
-        testInjection<FirebaseAnalyticsLogger>(true)
-        testInjection<EventTracker>(true)
-        testInjection<PermissionHandler>(false)
-    }
-
-    @Test
-    fun testHeartCommonUiModule() {
-        testScopedInjection<DialogActivity, Presenter<DialogActivityPresenter.View>>()
-        testInjection<TextUtils>(false)
-        testInjection<ColorUtils>(false)
-        testInjection<DrawableUtils>(false)
-        testInjection<DialogFactory>(false)
+    fun testHeartMapUtilsUiModule() {
+        testScopedInjection<SearchAddressActivity, Presenter<SearchAddressPresenter.View>>()
+        testScopedInjection<SelectAddressOnMapActivity, Presenter<SelectAddressOnMapPresenter.View>>()
     }
 
     private inline fun <reified T> testInjection(

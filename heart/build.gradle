@@ -10,12 +10,6 @@ dependencies {
     api project(":heart-common-ui")
     api project(":heart-interfaces")
 
-    //TODO Separate them from main heart
-    api project(':heart-map-tools')
-
-    //TODO Separate them from main heart
-    api project(':heart-map-tools-ui')
-
     api "androidx.appcompat:appcompat:$APPCOMPAT"
 //    api "androidx.appcompat:appcompat-resources:$APPCOMPAT"
     api "androidx.core:core-ktx:$CORE_KTX"

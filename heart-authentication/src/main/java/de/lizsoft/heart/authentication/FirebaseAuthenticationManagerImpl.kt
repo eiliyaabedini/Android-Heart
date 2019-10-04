@@ -41,7 +41,7 @@ class FirebaseAuthenticationManagerImpl(
         disposables += foregroundActivityService.getResumedScopedActivity(currentScope)
               .subscribe { activity ->
                   val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(BuildConfig.CONFIG_FIREBASE_GOOGLE_SIGN_IN_WEB_CLIENT_ID)
+                        .requestIdToken(BuildConfig.HEART_FIREBASE_GOOGLE_SIGN_IN_WEB_CLIENT_ID)
                         .requestEmail()
                         .build()
 

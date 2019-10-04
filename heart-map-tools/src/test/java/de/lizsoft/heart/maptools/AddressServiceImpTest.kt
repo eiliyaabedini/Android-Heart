@@ -1,4 +1,4 @@
-package de.lizsoft.heart.common.implementation.service
+package de.lizsoft.heart.maptools
 
 import com.nhaarman.mockitokotlin2.*
 import de.lizsoft.heart.common.extension.ToResponseResultMaybe
@@ -11,6 +11,7 @@ import de.lizsoft.heart.interfaces.map.model.PredictionModel
 import de.lizsoft.heart.interfaces.map.service.AddressService
 import de.lizsoft.heart.interfaces.map.service.CurrentLocation
 import de.lizsoft.heart.interfaces.map.service.PlacesService
+import de.lizsoft.heart.maptools.services.AddressServiceImp
 import de.lizsoft.heart.testhelper.thenEmpty
 import de.lizsoft.heart.testhelper.thenError
 import org.junit.Test

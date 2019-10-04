@@ -49,8 +49,8 @@ bintray {
         name = moduleName// has to be same as your library module name
         desc = moduleDescription
         userOrg = 'lizsoft'
-        websiteUrl = 'https://github.com/omegasoft7/heart'
-        vcsUrl = 'https://github.com/omegasoft7/heart.git'
+        websiteUrl = 'https://github.com/omegasoft7/Android-Heart'
+        vcsUrl = 'https://github.com/omegasoft7/Android-Heart'
         licenses = ["GPL-3.0"]
         dryRun = false //[Default: false] Whether to run this as dry-run, without deploying
         publish = true //[Default: false] Whether version should be auto published after an upload
@@ -84,7 +84,7 @@ install {
                 // Add your description here
                 name moduleName
 //                description moduleDescription
-                url 'https://github.com/omegasoft7/heart'
+                url 'https://github.com/omegasoft7/Android-Heart'
 
 //                // Set your license
                 licenses {
@@ -101,9 +101,9 @@ install {
 //                    }
 //                }
 //                scm {
-//                    connection 'https://github.com/androidCode/time-utils.git'
-//                    developerConnection 'https://github.com/androidCode/time-utils.git'
-//                    url 'https://github.com/androidCode/time-utils'
+//                    connection 'https://github.com/omegasoft7/Android-Heart'
+//                    developerConnection 'https://github.com/omegasoft7/Android-Heart'
+//                    url 'https://github.com/omegasoft7/Android-Heart'
 //                }
             }
         }

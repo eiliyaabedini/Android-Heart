@@ -1,5 +1,6 @@
 package de.lizsoft.heart.common.implementation.di
 
+import android.content.Context
 import android.preference.PreferenceManager
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -13,7 +14,6 @@ import de.lizsoft.heart.common.implementation.firebase.remote.FirebaseRemoteConf
 import de.lizsoft.heart.common.implementation.firebase.remote.FirebaseRemoteConfigInitializer
 import de.lizsoft.heart.common.implementation.firebase.remote.FirebaseRemoteConfigInitializerImp
 import de.lizsoft.heart.common.implementation.lifecycle.ForegroundActivityServiceImpl
-import de.lizsoft.heart.common.implementation.service.AddressServiceImp
 import de.lizsoft.heart.common.implementation.service.PermissionHandlerImp
 import de.lizsoft.heart.common.implementation.storage.LocalStorageManagerImp
 import de.lizsoft.heart.interfaces.common.ForegroundActivityService
@@ -25,9 +25,9 @@ import de.lizsoft.heart.interfaces.common.event.FirebaseAnalyticsLogger
 import de.lizsoft.heart.interfaces.common.firebase.messaging.FirebaseMessagingDelegate
 import de.lizsoft.heart.interfaces.common.firebase.remote.FirebaseRemoteConfigDelegate
 import de.lizsoft.heart.interfaces.koin.Qualifiers
-import de.lizsoft.heart.interfaces.map.service.AddressService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.Module
@@ -97,13 +97,31 @@ val heartCommonImplementationModule: Module = module {
 
     factory<PermissionHandler> { PermissionHandlerImp(get()) }
 
-    factory<AddressService> { AddressServiceImp(get(), get()) }
-
     factory<OkHttpClient>(Qualifiers.noCachingApiOKHTTP) {
         val client = OkHttpClient.Builder()
               .connectTimeout(1, TimeUnit.MINUTES)
               .readTimeout(1, TimeUnit.MINUTES)
               .writeTimeout(1, TimeUnit.MINUTES)
+
+        client.addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+
+        client.build()
+    }
+
+    factory<OkHttpClient>(Qualifiers.cachingApiOKHTTP) {
+
+        val client = OkHttpClient.Builder()
+              .connectTimeout(1, TimeUnit.MINUTES)
+              .readTimeout(1, TimeUnit.MINUTES)
+              .writeTimeout(1, TimeUnit.MINUTES)
+              .cache(
+                    Cache(
+                          get<Context>(Qualifiers.applicationContext).cacheDir,
+                          (5 * 1024 * 1024).toLong()
+                    )
+              )
 
         client.addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -122,6 +140,15 @@ fun heartCommonImplementationModuleWithParams(
             Retrofit.Builder()
                   .baseUrl(baseUrl)
                   .client(get<OkHttpClient>(Qualifiers.noCachingApiOKHTTP))
+                  .addConverterFactory(GsonConverterFactory.create())
+                  .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                  .build()
+        }
+
+        single<Retrofit>(Qualifiers.cachingApiRETROFIT) {
+            Retrofit.Builder()
+                  .baseUrl(baseUrl)
+                  .client(get<OkHttpClient>(Qualifiers.cachingApiOKHTTP))
                   .addConverterFactory(GsonConverterFactory.create())
                   .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                   .build()

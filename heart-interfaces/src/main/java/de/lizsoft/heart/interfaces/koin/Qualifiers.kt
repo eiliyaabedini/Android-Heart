@@ -11,7 +11,9 @@ object Qualifiers {
     val authenticatedUser: Qualifier = named("authenticatedUser")
 
     val noCachingApiOKHTTP: Qualifier = named("noCachingApiOKHTTP")
+    val cachingApiOKHTTP: Qualifier = named("cachingApiOKHTTP")
     val noCachingApiRETROFIT: Qualifier = named("noCachingApiRETROFIT")
+    val cachingApiRETROFIT: Qualifier = named("cachingApiRETROFIT")
 
     val applicationContext: Qualifier = named("ApplicationContext")
     val applicationInstance: Qualifier = named("applicationInstance")

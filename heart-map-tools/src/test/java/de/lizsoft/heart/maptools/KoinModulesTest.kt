@@ -1,56 +1,58 @@
-package de.lizsoft.app
+package de.lizsoft.heart.maptools
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
-import com.google.gson.Gson
-import com.nhaarman.mockitokotlin2.doReturn
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.nhaarman.mockitokotlin2.mock
-import de.lizsoft.heart.Heart
 import de.lizsoft.heart.interfaces.common.ReactiveTransformer
 import de.lizsoft.heart.interfaces.koin.Qualifiers
-import de.lizsoft.heart.interfaces.navigator.HeartNavigator
-import de.lizsoft.heart.maptools.ui.HeartMapUI
+import de.lizsoft.heart.interfaces.map.service.AddressService
+import de.lizsoft.heart.interfaces.map.service.CurrentLocation
+import de.lizsoft.heart.interfaces.map.service.LocationFulfiller
+import de.lizsoft.heart.interfaces.map.service.PlacesService
+import de.lizsoft.heart.maptools.di.heartMapUtilsModule
 import de.lizsoft.heart.testhelper.TestReactiveTransformer
-import de.lizsoft.travelcheck.di.travelCheckModule
-import okhttp3.OkHttpClient
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
+import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.core.module.Module
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.get
 import org.koin.test.inject
 import org.koin.test.mock.declare
 import org.koin.test.mock.declareMock
-import retrofit2.Retrofit
 
 class KoinModulesTest : KoinTest {
 
-    private val mockApplication: Application = mock{
-        on { applicationContext } doReturn mock()
+    private val mockApplication: Application = mock()
+    private val mockContext: Context = mock()
+
+    private val applicationModule: Module = module {
+        single(Qualifiers.applicationContext) { mockContext }
+        single(Qualifiers.applicationInstance) { mockApplication }
     }
 
     @Before
     fun setUp() {
-        Heart.bind(
-              application = mockApplication,
-              baseUrl = "https://www.google.com/",
-              modules = listOf(
-                    travelCheckModule
-              ),
-              isTesting = true
-        )
-        HeartMapUI.bind(get())
+        startKoin {
+            modules(
+                  listOf(
+                        applicationModule,
+                        heartMapUtilsModule
+                  )
+            )
+        }
 
         declare { factory<ReactiveTransformer> { TestReactiveTransformer() } }
 
-        declareMock<HeartNavigator>()
-        declareMock<SharedPreferences>()
-        declareMock<Gson>()
+        declareMock<PlacesClient>()
+        declareMock<CurrentLocation>()
     }
 
     @After
@@ -59,16 +61,11 @@ class KoinModulesTest : KoinTest {
     }
 
     @Test
-    fun testApplicationModule() {
-        testInjection<Context>(true, Qualifiers.applicationContext)
-        testInjection<Application>(true, Qualifiers.applicationInstance)
-    }
-
-
-    @Test
-    fun testServicesModule() {
-        testInjection<OkHttpClient>(false, Qualifiers.noCachingApiOKHTTP)
-        testInjection<Retrofit>(true, Qualifiers.noCachingApiRETROFIT)
+    fun testHeartMapUtilsModule() {
+        testInjection<CurrentLocation>(false)
+        testInjection<AddressService>(false)
+        testInjection<PlacesService>(false)
+        testInjection<LocationFulfiller>(false)
     }
 
     private inline fun <reified T> testInjection(

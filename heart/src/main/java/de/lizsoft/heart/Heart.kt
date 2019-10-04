@@ -1,13 +1,13 @@
 package de.lizsoft.heart
 
+import android.app.Application
+import android.content.Context
 import de.lizsoft.heart.common.di.heartCommonModule
 import de.lizsoft.heart.common.implementation.di.heartCommonImplementationModule
 import de.lizsoft.heart.common.implementation.di.heartCommonImplementationModuleWithParams
 import de.lizsoft.heart.common.ui.di.heartCommonUiModule
 import de.lizsoft.heart.di.heartModule
 import de.lizsoft.heart.interfaces.koin.Qualifiers
-import de.lizsoft.heart.maptools.di.heartMapUtilsModule
-import de.lizsoft.heart.maptools.ui.di.heartMapUtilsUiModule
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidLogger
@@ -25,16 +25,22 @@ object Heart : KoinComponent {
 
     //This has to be called after calling StartKoin in APP
     fun bind(
+          application: Application,
           baseUrl: String? = null,
           modules: List<Module> = emptyList(),
           isTesting: Boolean = false
     ) {
+
+        val applicationModule: Module = module {
+            single<Context>(Qualifiers.applicationContext) { application.applicationContext }
+            single(Qualifiers.applicationInstance) { application }
+        }
+
         val listOfModules: List<Module> = listOf(
+              applicationModule,
               heartModule,
               heartCommonModule,
               heartCommonUiModule,
-              heartMapUtilsModule,
-              heartMapUtilsUiModule,
               heartCommonImplementationModule,
               heartCommonImplementationModuleWithParams(baseUrl)
         )
@@ -51,9 +57,6 @@ object Heart : KoinComponent {
                   listOfModules + modules
             )
         }
-
-        //TODO check if other modules that required Firebase are also added to this project then run:
-        //FirebaseApp.initializeApp(application.applicationContext)
     }
 
     fun addOkHttpInterceptors(vararg interceptors: Interceptor) {

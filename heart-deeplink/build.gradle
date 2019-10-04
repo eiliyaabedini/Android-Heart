@@ -7,7 +7,7 @@ android {
     defaultConfig {
 
         manifestPlaceholders = [
-              DeeplinksFirebaseScheme: project.DeeplinksFirebaseScheme
+              DeeplinksFirebaseScheme: HEART_DEEPLINK_FIREBASE_SCHEME
         ]
 
     }

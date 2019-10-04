@@ -17,13 +17,12 @@ android {
         minSdkVersion MIN_SDK_VERSION
         targetSdkVersion TARGET_SDK_VERSION
 
-        versionCode 5
-        versionName "1.0.0-alpha4"
+        versionCode 6
+        versionName "1.0.1"
 
         //Set Scheme and Host for deeplinks
         manifestPlaceholders = [
-                TextsAppName           : project.TextsAppName,
-                DeeplinksFirebaseScheme: project.DeeplinksFirebaseScheme
+                DeeplinksFirebaseScheme: HEART_DEEPLINK_FIREBASE_SCHEME
         ]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -41,21 +40,6 @@ android {
             keyAlias RELEASE_KEY_ALIAS
             storePassword RELEASE_STORE_PASSWORD
             keyPassword RELEASE_KEY_PASSWORD
-        }
-    }
-
-    testOptions {
-
-        project.android.testVariants.all {
-            if (it.name == "debugAndroidTest") {
-                project.tasks.all { task ->
-                    if (task.name == "processDebugGoogleServices") {
-                        task.enabled = false
-                    } else if (task.name == "processReleaseGoogleServices") {
-                        task.enabled = false
-                    }
-                }
-            }
         }
     }
 
@@ -98,11 +82,15 @@ dependencies {
     implementation project(":travel-check")
     if (USE_REMOTE_HEART) {
         implementation "de.lizsoft.heart:heart:$HEART_VERSION"
+        implementation "de.lizsoft.heart:heart-map-tools:$HEART_VERSION"
+        implementation "de.lizsoft.heart:heart-map-tools-ui:$HEART_VERSION"
         implementation "de.lizsoft.heart:heart-deeplink:$HEART_VERSION"
         implementation "de.lizsoft.heart:heart-push-notification:$HEART_VERSION"
         implementation "de.lizsoft.heart:heart-authentication:$HEART_VERSION"
     } else {
         implementation project(":heart")
+        implementation project(':heart-map-tools')
+        implementation project(':heart-map-tools-ui')
         implementation project(':heart-deeplink')
         implementation project(':heart-push-notification')
         implementation project(':heart-authentication')

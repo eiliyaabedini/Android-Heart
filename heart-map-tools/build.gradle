@@ -5,10 +5,10 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     defaultConfig {
-        buildConfigField "String", "CONFIG_GOOGLE_MAP_API_KEY", "\"${project.ConfigGoogleMapApiKey}\""
+        buildConfigField "String", "HEART_GOOGLE_MAP_API_KEY", "\"${HEART_GOOGLE_MAP_API_KEY}\""
 
         manifestPlaceholders = [
-              ConfigGoogleMapApiKey: project.ConfigGoogleMapApiKey
+              ConfigGoogleMapApiKey: HEART_GOOGLE_MAP_API_KEY
         ]
     }
 }
