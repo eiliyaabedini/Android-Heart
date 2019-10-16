@@ -54,7 +54,7 @@ fun isEmailValid(email: String): Boolean {
 }
 
 fun Activity.hideKeyboard() {
-    hideKeyboard(if (currentFocus == null) View(this) else currentFocus)
+    hideKeyboard((currentFocus ?: View(this)))
 }
 
 fun Context.hideKeyboard(view: View) {

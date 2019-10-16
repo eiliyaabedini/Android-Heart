@@ -2,8 +2,8 @@
 
 buildscript {
     ext.MIN_SDK_VERSION = 23
-    ext.TARGET_SDK_VERSION = 28
-    ext.BUILD_TOOLS_VERSION = '28.0.3'
+    ext.TARGET_SDK_VERSION = 29
+    ext.BUILD_TOOLS_VERSION = '29.0.0'
 
     ext.USE_REMOTE_HEART = false
     ext.HEART_VERSION = '1.1.2'
@@ -55,7 +55,7 @@ buildscript {
     dependencies {
         classpath 'com.google.gms:google-services:4.3.2'
 
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 
         classpath 'io.fabric.tools:gradle:1.31.0'

@@ -216,11 +216,11 @@ class LoadingButton @JvmOverloads constructor(
         }
     }
 
-    override fun setOnClickListener(l: OnClickListener) {
+    override fun setOnClickListener(l: OnClickListener?) {
         button.setOnClickListener { view ->
             if (!progressBar.isShown && button.isEnabled) {
                 showLoading()
-                l.onClick(view)
+                l?.onClick(view)
             }
         }
     }

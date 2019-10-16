@@ -125,6 +125,6 @@ TODO Travel Check:
   
 **Publish a new version into play store** 
 ```  
-./gradlew --rerun-tasks assembleRelease --stacktrace  
-./gradlew --rerun-tasks publishReleaseApk --stacktrace  
+./gradlew --rerun-tasks bundleRelease --stacktrace
+./gradlew --rerun-tasks publishReleaseBundle --stacktrace
 ```

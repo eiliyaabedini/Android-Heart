@@ -17,8 +17,8 @@ android {
         minSdkVersion MIN_SDK_VERSION
         targetSdkVersion TARGET_SDK_VERSION
 
-        versionCode 6
-        versionName "1.0.1"
+        versionCode 8
+        versionName "1.0.3"
 
         //Set Scheme and Host for deeplinks
         manifestPlaceholders = [
@@ -72,8 +72,9 @@ android {
 
 play {
     serviceAccountCredentials = file("keystore/Google Play Android Developer-9361a4ffa0ae.json")
-    fromTrack = "alpha"
-    artifactDir = file("/repositories/local/heart lib/app/build/outputs/apk/release")
+    fromTrack = "beta"
+    defaultToAppBundles = true
+    artifactDir = file("/Users/farhad.sanaei/repositories/local/Android-Heart/app/build/outputs/bundle/release")
 }
 
 dependencies {
