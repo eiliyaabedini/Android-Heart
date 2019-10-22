@@ -2,6 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
 
+repositories {
+    //Related to RxPaparazzo
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
     api project(':heart-interfaces')
 
