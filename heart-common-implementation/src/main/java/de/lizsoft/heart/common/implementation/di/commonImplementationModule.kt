@@ -97,7 +97,7 @@ val heartCommonImplementationModule: Module = module {
 
     factory<PermissionHandler> { PermissionHandlerImp(get()) }
 
-    factory<OkHttpClient>(Qualifiers.noCachingApiOKHTTP) {
+    single<OkHttpClient>(Qualifiers.noCachingApiOKHTTP) {
         val client = OkHttpClient.Builder()
               .connectTimeout(1, TimeUnit.MINUTES)
               .readTimeout(1, TimeUnit.MINUTES)
@@ -110,7 +110,7 @@ val heartCommonImplementationModule: Module = module {
         client.build()
     }
 
-    factory<OkHttpClient>(Qualifiers.cachingApiOKHTTP) {
+    single<OkHttpClient>(Qualifiers.cachingApiOKHTTP) {
 
         val client = OkHttpClient.Builder()
               .connectTimeout(1, TimeUnit.MINUTES)

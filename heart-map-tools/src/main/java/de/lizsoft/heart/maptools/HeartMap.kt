@@ -7,15 +7,15 @@ import org.koin.core.context.startKoin
 
 object HeartMap {
 
-    fun bind() {
+    fun bind(googleMapApiKey: String) {
 
         if (GlobalContext.getOrNull() == null) {
             startKoin {
-                heartMapUtilsModule
+                heartMapUtilsModule(googleMapApiKey)
             }
         } else {
             loadKoinModules(
-                  heartMapUtilsModule
+                  heartMapUtilsModule(googleMapApiKey)
             )
         }
     }

@@ -44,7 +44,7 @@ class KoinModulesTest : KoinTest {
             modules(
                   listOf(
                         applicationModule,
-                        heartMapUtilsModule
+                        heartMapUtilsModule("test_key")
                   )
             )
         }

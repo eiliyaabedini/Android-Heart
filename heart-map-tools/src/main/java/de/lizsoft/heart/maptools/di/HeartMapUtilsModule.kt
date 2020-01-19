@@ -14,7 +14,7 @@ import de.lizsoft.heart.maptools.services.PlacesServiceImp
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-val heartMapUtilsModule: Module = module {
+fun heartMapUtilsModule(googleMapApiKey: String): Module = module {
 
     factory<CurrentLocation> {
         CurrentLocationImp(
@@ -27,7 +27,7 @@ val heartMapUtilsModule: Module = module {
     }
 
     single {
-        Places.initialize(get(Qualifiers.applicationContext), BuildConfig.HEART_GOOGLE_MAP_API_KEY)
+        Places.initialize(get(Qualifiers.applicationContext), googleMapApiKey)
         Places.createClient(get(Qualifiers.applicationContext))
     }
 

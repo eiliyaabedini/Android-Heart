@@ -103,6 +103,14 @@ If the changes are minor and you want to skip the CI build, you can add ```[ci s
 <br>
 <br>
 
+
+How to use:
+Map
+ put this into your App Manifest
+ ```<meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="<Your Google Map Api Key Here>" />
+ ```
   **TODOs**
   
 TODO Health:

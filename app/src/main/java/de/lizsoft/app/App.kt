@@ -44,8 +44,8 @@ class App(private val application: Application) : DefaultApplicationLike(), Koin
               )
         )
         Heart.addOkHttpInterceptors(get<AuthenticationInterceptor>())
-        HeartMap.bind()
-        HeartMapUI.bind(heartNavigator)
+//        HeartMap.bind()
+//        HeartMapUI.bind(heartNavigator)
         HeartDeepLink.bind {
             heartNavigator.navigate(OpenTravelDailyCheckScreen)
         }

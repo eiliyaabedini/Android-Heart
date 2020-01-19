@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name="de.lizsoft.heart.common.ui.de.lizsoft.heart.common.ui.ui.dialogActivity.DialogActivity"
+            android:name="de.lizsoft.heart.common.ui.ui.dialogActivity.DialogActivity"
             android:label=""
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />

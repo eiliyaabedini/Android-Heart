@@ -6,6 +6,7 @@
     <application>
         <activity
             android:name="de.lizsoft.heart.deeplink.LinkDispatcherActivity"
+            android:exported="true"
             android:label=""
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme.NoActionBar">

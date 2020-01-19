@@ -67,7 +67,7 @@ class KoinModulesTest : KoinTest {
 
     @Test
     fun testServicesModule() {
-        testInjection<OkHttpClient>(false, Qualifiers.noCachingApiOKHTTP)
+        testInjection<OkHttpClient>(true, Qualifiers.noCachingApiOKHTTP)
         testInjection<Retrofit>(true, Qualifiers.noCachingApiRETROFIT)
     }
 

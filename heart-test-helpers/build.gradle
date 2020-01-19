@@ -14,7 +14,7 @@ dependencies {
     api "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION"
 
     api 'junit:junit:4.12'
-    api "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+    api "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 
     api 'androidx.test:runner:1.2.0'
 

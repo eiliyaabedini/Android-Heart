@@ -62,7 +62,7 @@ object Heart : KoinComponent {
     fun addOkHttpInterceptors(vararg interceptors: Interceptor) {
         val heartAddOkHttpInterceptorsModule: Module = module {
             val okHttpClient: OkHttpClient = get(Qualifiers.noCachingApiOKHTTP)
-            factory<OkHttpClient>(Qualifiers.noCachingApiOKHTTP, override = true) {
+            single<OkHttpClient>(Qualifiers.noCachingApiOKHTTP, override = true) {
                 okHttpClient
                       .newBuilder()
                       .apply {

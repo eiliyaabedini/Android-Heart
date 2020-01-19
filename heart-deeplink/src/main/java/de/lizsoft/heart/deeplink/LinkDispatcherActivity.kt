@@ -37,6 +37,7 @@ class LinkDispatcherActivity : ActivityWithPresenter() {
               .cancelAll()
 
         disposables += deeplinkDispatcher.dispatch(intent)
+              .filter { it }
               .subscribe {
                   finish()
               }
