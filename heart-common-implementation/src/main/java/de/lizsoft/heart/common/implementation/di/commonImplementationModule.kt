@@ -29,7 +29,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -103,16 +102,11 @@ val heartCommonImplementationModule: Module = module {
               .readTimeout(1, TimeUnit.MINUTES)
               .writeTimeout(1, TimeUnit.MINUTES)
 
-        client.addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
-
         client.build()
     }
 
     single<OkHttpClient>(Qualifiers.cachingApiOKHTTP) {
-
-        val client = OkHttpClient.Builder()
+        OkHttpClient.Builder()
               .connectTimeout(1, TimeUnit.MINUTES)
               .readTimeout(1, TimeUnit.MINUTES)
               .writeTimeout(1, TimeUnit.MINUTES)
@@ -121,13 +115,7 @@ val heartCommonImplementationModule: Module = module {
                           get<Context>(Qualifiers.applicationContext).cacheDir,
                           (5 * 1024 * 1024).toLong()
                     )
-              )
-
-        client.addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
-
-        client.build()
+              ).build()
     }
 }
 

@@ -22,9 +22,6 @@ dependencies {
     implementation "com.google.firebase:firebase-config:$FIREBASE_REMOTE_CONFIG"
 
     api "com.github.miguelbcr:RxPaparazzo:$RX_PAPARAZZO"
-
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
-
 }
 
 ext {

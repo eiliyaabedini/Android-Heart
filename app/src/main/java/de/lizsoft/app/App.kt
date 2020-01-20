@@ -8,8 +8,6 @@ import de.lizsoft.heart.activitylauncher.ActivityLauncher
 import de.lizsoft.heart.authentication.HeartAuthentication
 import de.lizsoft.heart.deeplink.HeartDeepLink
 import de.lizsoft.heart.interfaces.navigator.HeartNavigator
-import de.lizsoft.heart.maptools.HeartMap
-import de.lizsoft.heart.maptools.ui.HeartMapUI
 import de.lizsoft.heart.pushnotification.HeartPushNotification
 import de.lizsoft.travelcheck.dailycheck.TravelDailyCheckActivity
 import de.lizsoft.travelcheck.di.travelCheckModule
@@ -43,7 +41,7 @@ class App(private val application: Application) : DefaultApplicationLike(), Koin
                     travelCheckModule
               )
         )
-        Heart.addOkHttpInterceptors(get<AuthenticationInterceptor>())
+        Heart.addOkHttpInterceptors(listOf(get<AuthenticationInterceptor>()))
 //        HeartMap.bind()
 //        HeartMapUI.bind(heartNavigator)
         HeartDeepLink.bind {

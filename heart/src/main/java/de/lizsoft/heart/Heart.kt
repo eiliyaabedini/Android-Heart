@@ -10,6 +10,7 @@ import de.lizsoft.heart.di.heartModule
 import de.lizsoft.heart.interfaces.koin.Qualifiers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinComponent
 import org.koin.core.context.GlobalContext
@@ -59,7 +60,10 @@ object Heart : KoinComponent {
         }
     }
 
-    fun addOkHttpInterceptors(vararg interceptors: Interceptor) {
+    fun addOkHttpInterceptors(
+          interceptors: List<Interceptor> = emptyList(),
+          debugLevel: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BODY
+    ) {
         val heartAddOkHttpInterceptorsModule: Module = module {
             val okHttpClient: OkHttpClient = get(Qualifiers.noCachingApiOKHTTP)
             single<OkHttpClient>(Qualifiers.noCachingApiOKHTTP, override = true) {
@@ -69,6 +73,12 @@ object Heart : KoinComponent {
                           interceptors.forEach { interceptor ->
                               addInterceptor(interceptor)
                           }
+
+                          addInterceptor(
+                                HttpLoggingInterceptor().apply {
+                                    level = debugLevel
+                                }
+                          )
                       }
                       .build()
             }
