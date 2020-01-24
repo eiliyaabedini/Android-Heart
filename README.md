@@ -9,19 +9,19 @@ With Android Heart you will have everything that you need for architecture, test
 **Download**
 Main Library
 
-    implementation "de.lizsoft.heart:heart:1.1.2"
+    implementation "de.lizsoft.heart:heart:<Latest_Version>"
 <br>
 DeepLink
 
-    implementation "de.lizsoft.heart:heart-deeplink:1.1.2"
+    implementation "de.lizsoft.heart:heart-deeplink:<Latest_Version>"
 <br>
 Push notification
 
-    implementation "de.lizsoft.heart:heart-push-notification:1.1.2"
+    implementation "de.lizsoft.heart:heart-push-notification:<Latest_Version>"
 <br>
 Firebase Authentication
 
-    implementation "de.lizsoft.heart:heart-authentication:1.1.2"
+    implementation "de.lizsoft.heart:heart-authentication:<Latest_Version>"
 
 
 <br>
