@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -33,6 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding3.view.globalLayouts
 import com.tapadoo.alerter.Alerter
 import de.lizsoft.heart.common.extension.dp2px
+import de.lizsoft.heart.common.ui.ActivityWithPresenter
 import de.lizsoft.heart.common.ui.R
 import de.lizsoft.heart.common.ui.glide.CropCircleWithBorderTransformation
 import de.lizsoft.heart.interfaces.common.ui.ActivityWithPresenterInterface
@@ -245,4 +247,16 @@ private fun getColorFromNotificationColorType(alerterColorType: AlerterColorType
         AlerterColorType.ERROR -> R.color.error
         AlerterColorType.BLACK -> R.color.black
     }
+}
+
+fun <V : View> ActivityWithPresenter.bindView(id: Int): Lazy<V> = lazy {
+    findViewById<V>(id)
+}
+
+fun <V : View> View.bindView(id: Int): Lazy<V> = lazy {
+    findViewById<V>(id)
+}
+
+fun <V : View> Fragment.bindView(id: Int): Lazy<V> = lazy {
+    view!!.findViewById<V>(id)
 }
