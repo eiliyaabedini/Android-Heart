@@ -3,6 +3,7 @@ package de.lizsoft.heart.interfaces.common.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import de.lizsoft.heart.interfaces.common.presenter.PresenterCommonView
 import io.reactivex.Observable
 
@@ -26,6 +27,9 @@ interface ActivityWithPresenterInterface {
 
     fun getCommonView(): PresenterCommonView
     fun getContext(): Context
+
+    fun <V : View> findViewByIdFromContent(id: Int): V
+    fun <V : View> findViewByIdFromOverlay(id: Int): V
 
     fun startActivityFromParent(intent: Intent, options: Bundle? = null)
     fun startActivityForResultFromParent(intent: Intent, requestCode: Int, options: Bundle? = null)

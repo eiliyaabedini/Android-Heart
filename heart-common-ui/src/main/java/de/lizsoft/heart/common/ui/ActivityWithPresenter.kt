@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
@@ -18,7 +19,7 @@ import com.jakewharton.rxbinding3.core.scrollChangeEvents
 import de.lizsoft.heart.common.extension.dp2px
 import de.lizsoft.heart.common.extension.hideKeyboard
 import de.lizsoft.heart.common.extension.mergeDateAndTime
-import de.lizsoft.heart.common.ui.extension.bindView
+import de.lizsoft.heart.common.ui.extension.findView
 import de.lizsoft.heart.common.ui.factory.DialogFactory
 import de.lizsoft.heart.common.ui.ui.bottomsheet.TextBottomSheet
 import de.lizsoft.heart.common.ui.ui.bottomsheet.model.TextBottomSheetModel
@@ -48,8 +49,8 @@ import java.util.*
 abstract class ActivityWithPresenter : AppCompatActivity(),
       ActivityWithPresenterInterface {
 
-    private val contentLayout: FrameLayout by bindView(R.id.activity_with_presenter_content)
-    private val overlayLayout: FrameLayout by bindView(R.id.activity_with_presenter_overlay)
+    private val contentLayout: FrameLayout by findView(R.id.activity_with_presenter_content)
+    private val overlayLayout: FrameLayout by findView(R.id.activity_with_presenter_overlay)
 
     protected val disposables = CompositeDisposable()
 
@@ -401,6 +402,10 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
     override fun getCommonView(): PresenterCommonView = presenterCommonView
 
     override fun getContext(): Context = this
+
+    override fun <V : View> findViewByIdFromContent(@IdRes id: Int): V = contentLayout.findViewById(id)
+
+    override fun <V : View> findViewByIdFromOverlay(@IdRes id: Int): V = overlayLayout.findViewById(id)
 
     override fun startActivityFromParent(intent: Intent, options: Bundle?) {
         startActivity(intent, options)

@@ -249,8 +249,12 @@ private fun getColorFromNotificationColorType(alerterColorType: AlerterColorType
     }
 }
 
-fun <V : View> ActivityWithPresenter.bindView(id: Int): Lazy<V> = lazy {
+fun <V : View> ActivityWithPresenter.findView(id: Int): Lazy<V> = lazy {
     findViewById<V>(id)
+}
+
+fun <V : View> ActivityWithPresenter.bindView(id: Int): Lazy<V> = lazy {
+    findViewByIdFromContent<V>(id)
 }
 
 fun <V : View> View.bindView(id: Int): Lazy<V> = lazy {
