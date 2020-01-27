@@ -7,7 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
+import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -19,7 +19,6 @@ import com.jakewharton.rxbinding3.core.scrollChangeEvents
 import de.lizsoft.heart.common.extension.dp2px
 import de.lizsoft.heart.common.extension.hideKeyboard
 import de.lizsoft.heart.common.extension.mergeDateAndTime
-import de.lizsoft.heart.common.ui.extension.findView
 import de.lizsoft.heart.common.ui.factory.DialogFactory
 import de.lizsoft.heart.common.ui.ui.bottomsheet.TextBottomSheet
 import de.lizsoft.heart.common.ui.ui.bottomsheet.model.TextBottomSheetModel
@@ -48,9 +47,6 @@ import java.util.*
 
 abstract class ActivityWithPresenter : AppCompatActivity(),
       ActivityWithPresenterInterface {
-
-    private val contentLayout: FrameLayout by findView(R.id.activity_with_presenter_content)
-    private val overlayLayout: FrameLayout by findView(R.id.activity_with_presenter_overlay)
 
     protected val disposables = CompositeDisposable()
 
@@ -267,11 +263,15 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
         Timber.d("onCreate called for screenBucket:${screenBucket.screenBucketModel}")
 
         setContentView(R.layout.activity_with_presenter_layout)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
 
         stateManager = StateManager(
               context = baseContext,
-              contentLayout = contentLayout,
-              overlayLayout = overlayLayout,
+              contentLayout = findViewById(R.id.activity_with_presenter_content),
+              overlayLayout = findViewById(R.id.activity_with_presenter_overlay),
               normalLayout = getCurrentScreenBucketModel().viewLayout,
               loadingDefaultLayout = R.layout.state_manager_default_loading,
               loadingLayoutId = getCurrentScreenBucketModel().loadingLayout,
@@ -403,9 +403,9 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
 
     override fun getContext(): Context = this
 
-    override fun <V : View> findViewByIdFromContent(@IdRes id: Int): V = contentLayout.findViewById(id)
+    override fun <V : View> findViewByIdFromContent(@IdRes id: Int): V = findViewById<ViewGroup>(R.id.activity_with_presenter_content).findViewById(id)
 
-    override fun <V : View> findViewByIdFromOverlay(@IdRes id: Int): V = overlayLayout.findViewById(id)
+    override fun <V : View> findViewByIdFromOverlay(@IdRes id: Int): V = findViewById<ViewGroup>(R.id.activity_with_presenter_overlay).findViewById(id)
 
     override fun startActivityFromParent(intent: Intent, options: Bundle?) {
         startActivity(intent, options)
