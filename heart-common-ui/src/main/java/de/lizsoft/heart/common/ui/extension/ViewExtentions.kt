@@ -250,7 +250,7 @@ private fun getColorFromNotificationColorType(alerterColorType: AlerterColorType
 }
 
 fun <V : View> ActivityWithPresenter.bindView(id: Int): Lazy<V> = lazy {
-    findViewByIdFromContent<V>(id)
+    findViewById<V>(id)
 }
 
 fun <V : View> View.bindView(id: Int): Lazy<V> = lazy {

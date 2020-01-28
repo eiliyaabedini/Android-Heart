@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 
-class StateManager<A>(
+class StateManager(
     private val context: Context,
     private val contentLayout: FrameLayout,
     private val overlayLayout: FrameLayout,

@@ -28,9 +28,6 @@ interface ActivityWithPresenterInterface {
     fun getCommonView(): PresenterCommonView
     fun getContext(): Context
 
-    fun <V : View> findViewByIdFromContent(id: Int): V
-    fun <V : View> findViewByIdFromOverlay(id: Int): V
-
     fun startActivityFromParent(intent: Intent, options: Bundle? = null)
     fun startActivityForResultFromParent(intent: Intent, requestCode: Int, options: Bundle? = null)
     fun observeActivityResult(): Observable<ActivityResult>

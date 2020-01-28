@@ -7,8 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.NestedScrollView
@@ -60,7 +58,7 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
     protected val actions: BehaviorSubject<PresenterAction> = BehaviorSubject.create()
 
     private lateinit var screenBucket: ScreenBucket<*>
-    private lateinit var stateManager: StateManager<PresenterAction>
+    private lateinit var stateManager: StateManager
 
     private var tag: String? = null
 
@@ -403,17 +401,12 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
 
     override fun getContext(): Context = this
 
-    override fun <V : View> findViewByIdFromContent(@IdRes id: Int): V = findViewById<ViewGroup>(R.id.activity_with_presenter_content).findViewById(id)
-
-    override fun <V : View> findViewByIdFromOverlay(@IdRes id: Int): V = findViewById<ViewGroup>(R.id.activity_with_presenter_overlay).findViewById(id)
-
     override fun startActivityFromParent(intent: Intent, options: Bundle?) {
         startActivity(intent, options)
     }
 
     override fun startActivityForResultFromParent(intent: Intent, requestCode: Int, options: Bundle?) {
         startActivityForResult(intent, requestCode, options)
-
     }
 
     override fun observeActivityResult(): Observable<ActivityResult> = activityResults
