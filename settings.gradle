@@ -1,4 +1,4 @@
 include ':app', ':heart-test-helpers', ':heart-authentication',
-      ':travel-check',
-      ':heart', ':heart-interfaces', ':heart-common-ui', ':heart-common', ':heart-activitylauncher', ':heart-deeplink', ':heart-viewstatemanager',
-      ':heart-push-notification', ':heart-common-implementation', ':heart-map-tools', ':heart-map-tools-ui'
+        ':travel-check', ':heart-error-handler',
+        ':heart', ':heart-interfaces', ':heart-common-ui', ':heart-common', ':heart-deeplink', ':heart-viewstatemanager',
+        ':heart-push-notification', ':heart-common-implementation', ':heart-map-tools', ':heart-map-tools-ui'

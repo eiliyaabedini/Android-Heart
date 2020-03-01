@@ -1,29 +1,24 @@
-package de.lizsoft.heart.deeplink
+package de.lizsoft.heart.errorhandler
 
-import de.lizsoft.heart.deeplink.di.heartDeeplinkModule
-import de.lizsoft.heart.interfaces.deeplink.model.Route
+import de.lizsoft.heart.errorhandler.di.heartErrorHandlerModule
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
-object HeartDeepLink {
+object HeartErrorHandler {
 
-    internal lateinit var heartDeepLinkDispatcher: (Route) -> Unit
-
-    fun bind(isTesting: Boolean = false, dispatcher: (Route) -> Unit) {
-
-        heartDeepLinkDispatcher = dispatcher
+    fun bind(isTesting: Boolean = false, dispatcher: (Throwable) -> Unit) {
 
         if (GlobalContext.getOrNull() == null) {
             startKoin {
                 if (isTesting) androidLogger(Level.DEBUG)
-                heartDeeplinkModule
+                heartErrorHandlerModule(dispatcher)
             }
         } else {
             loadKoinModules(
-                  heartDeeplinkModule
+                  heartErrorHandlerModule(dispatcher)
             )
         }
     }

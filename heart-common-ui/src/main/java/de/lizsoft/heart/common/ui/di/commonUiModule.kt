@@ -13,6 +13,7 @@ import de.lizsoft.heart.interfaces.common.*
 import de.lizsoft.heart.interfaces.koin.Qualifiers
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import org.koin.experimental.builder.factory
 
 val heartCommonUiModule = module {
     scope(named<DialogActivity>()) {
@@ -25,6 +26,6 @@ val heartCommonUiModule = module {
     factory<DateUtils> { DateUtilsImp(get(Qualifiers.applicationContext)) }
     factory<ColorUtils> { ColorUtilsImp(get(Qualifiers.applicationContext)) }
     factory<DrawableUtils> { DrawableUtilsImp(get(Qualifiers.applicationContext)) }
-    factory { DialogFactory() }
+    factory<DialogFactory>()
     single<Navigator> { NavigatorImp() }
 }

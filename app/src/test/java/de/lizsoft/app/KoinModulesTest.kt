@@ -42,7 +42,7 @@ class KoinModulesTest : KoinTest {
               modules = listOf(
                     travelCheckModule
               ),
-              isTesting = true
+              isTesting = false
         )
         HeartMapUI.bind(get())
 

@@ -1,4 +1,4 @@
-package de.lizsoft.heart.interfaces.common.model
+package de.lizsoft.travelcheck.error
 
 import java.io.Serializable
 

@@ -88,6 +88,7 @@ dependencies {
         implementation "de.lizsoft.heart:heart-deeplink:$HEART_VERSION"
         implementation "de.lizsoft.heart:heart-push-notification:$HEART_VERSION"
         implementation "de.lizsoft.heart:heart-authentication:$HEART_VERSION"
+        implementation "de.lizsoft.heart:heart-error-handler:$HEART_VERSION"
     } else {
         implementation project(":heart")
         implementation project(':heart-map-tools')
@@ -95,6 +96,7 @@ dependencies {
         implementation project(':heart-deeplink')
         implementation project(':heart-push-notification')
         implementation project(':heart-authentication')
+        implementation project(':heart-error-handler')
     }
 
     testImplementation project(':heart-test-helpers')

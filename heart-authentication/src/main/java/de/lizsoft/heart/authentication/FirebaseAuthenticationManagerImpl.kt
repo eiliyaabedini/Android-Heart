@@ -57,9 +57,9 @@ class FirebaseAuthenticationManagerImpl(
         disposables += signInObserve(activity)
               .filter { it }
               .doOnSuccess {
-                  heartNavigator.navigate(
+                  heartNavigator.getLauncher(
                         HeartAuthentication.signedInScreenObject
-                  )
+                  )?.startActivity()
                   activity.getCommonView().closeScreen()
               }
               .doOnError {
@@ -134,9 +134,9 @@ class FirebaseAuthenticationManagerImpl(
         disposables += signOutObserve(activity)
               .filter { it }
               .doOnSuccess {
-                  heartNavigator.navigate(
+                  heartNavigator.getLauncher(
                         HeartAuthentication.signInScreenObject
-                  )
+                  )?.startActivity()
               }
               .doOnError {
                   if (handleShowingProgress) activity.getCommonView().showContent()

@@ -8,7 +8,6 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.gson.Gson
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import de.lizsoft.heart.common.GenericErrorHandler
 import de.lizsoft.heart.common.di.heartCommonModule
 import de.lizsoft.heart.common.event.EventManager
 import de.lizsoft.heart.common.implementation.di.heartCommonImplementationModule
@@ -20,6 +19,8 @@ import de.lizsoft.heart.common.ui.factory.DialogFactory
 import de.lizsoft.heart.common.ui.ui.dialogActivity.DialogActivity
 import de.lizsoft.heart.common.ui.ui.dialogActivity.DialogActivityPresenter
 import de.lizsoft.heart.di.heartModule
+import de.lizsoft.heart.errorhandler.GenericErrorHandler
+import de.lizsoft.heart.errorhandler.di.heartErrorHandlerModule
 import de.lizsoft.heart.interfaces.common.*
 import de.lizsoft.heart.interfaces.common.event.EventTracker
 import de.lizsoft.heart.interfaces.common.event.FirebaseAnalyticsLogger
@@ -63,7 +64,8 @@ class KoinModulesTest : KoinTest {
                         heartCommonImplementationModule,
                         heartCommonModule,
                         heartModule,
-                        heartCommonImplementationModuleWithParams("")
+                        heartCommonImplementationModuleWithParams(""),
+                        heartErrorHandlerModule { }
                   )
             )
         }
@@ -92,6 +94,10 @@ class KoinModulesTest : KoinTest {
     @Test
     fun testHeartCommonModule() {
         testInjection<EventManager>(true)
+    }
+
+    @Test
+    fun testHeartErrorHandlerModule() {
         testInjection<GenericErrorHandler>(true)
     }
 
@@ -106,6 +112,7 @@ class KoinModulesTest : KoinTest {
         testInjection<FirebaseAnalyticsLogger>(true)
         testInjection<EventTracker>(true)
         testInjection<PermissionHandler>(false)
+        testInjection<String>(true, Qualifiers.baseApiUrl)
     }
 
     @Test

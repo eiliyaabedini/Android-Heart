@@ -13,10 +13,10 @@ import de.lizsoft.travelcheck.model.OpenTravelOnBoardingScreen
 import timber.log.Timber
 
 class TravelSignInActivityPresenter(
-      private val heartNavigator: HeartNavigator,
-      private val firebaseCurrentUserManager: FirebaseCurrentUserManager,
-      private val firebaseAuthenticationManager: FirebaseAuthenticationManager,
-      private val reactiveTransformer: ReactiveTransformer
+    private val heartNavigator: HeartNavigator,
+    private val firebaseCurrentUserManager: FirebaseCurrentUserManager,
+    private val firebaseAuthenticationManager: FirebaseAuthenticationManager,
+    private val reactiveTransformer: ReactiveTransformer
 ) : Presenter<TravelSignInActivityPresenter.View>() {
 
     override fun initialise() {
@@ -41,15 +41,14 @@ class TravelSignInActivityPresenter(
 
         if (firebaseCurrentUserManager.isAuthenticated()) {
             if (firebaseCurrentUserManager.isProfileComplete()) {
-                heartNavigator.navigate(OpenTravelCheckScreen)
+                heartNavigator.getLauncher(OpenTravelCheckScreen)?.startActivity()
                 commonView?.closeScreen()
             } else {
-                heartNavigator.navigate(OpenTravelOnBoardingScreen)
+                heartNavigator.getLauncher(OpenTravelOnBoardingScreen)?.startActivity()
                 commonView?.closeScreen()
             }
         }
     }
-
 
     interface View : PresenterView
 

@@ -8,7 +8,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapte
 import com.github.vivchar.rendererrecyclerviewadapter.binder.ViewBinder
 import com.jakewharton.rxbinding3.widget.textChanges
 import com.mancj.materialsearchbar.MaterialSearchBar
-import de.lizsoft.heart.activitylauncher.retrieveArgument
+import de.lizsoft.heart.interfaces.navigator.retrieveArgument
 import de.lizsoft.heart.common.ui.ActivityWithPresenter
 import de.lizsoft.heart.common.ui.ScreenBucket
 import de.lizsoft.heart.common.ui.extension.bindView

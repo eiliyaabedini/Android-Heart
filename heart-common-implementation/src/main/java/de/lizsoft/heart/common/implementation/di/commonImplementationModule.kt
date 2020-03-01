@@ -31,11 +31,12 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import org.koin.experimental.builder.factoryBy
+import org.koin.experimental.builder.singleBy
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-
 
 val heartCommonImplementationModule: Module = module {
 
@@ -60,13 +61,13 @@ val heartCommonImplementationModule: Module = module {
     }
 
 
-    single<LocalStorageManager> { LocalStorageManagerImp(get(), get()) }
+    singleBy<LocalStorageManager, LocalStorageManagerImp>()
 
     factory {
         PreferenceManager.getDefaultSharedPreferences(get(Qualifiers.applicationContext))
     }
 
-    single<FirebaseRemoteConfig> {
+    single {
         val remoteConfig = FirebaseRemoteConfig.getInstance()
         val configSettings = FirebaseRemoteConfigSettings.Builder()
               .setDeveloperModeEnabled(BuildConfig.DEBUG)
@@ -78,23 +79,15 @@ val heartCommonImplementationModule: Module = module {
         remoteConfig
     }
 
-    single<FirebaseRemoteConfigInitializer> {
-        FirebaseRemoteConfigInitializerImp(
-              get(),
-              get()
-        )
-    }
-    single<FirebaseRemoteConfigDelegate> {
-        FirebaseRemoteConfigDelegateImp(
-              get()
-        )
-    }
+    singleBy<FirebaseRemoteConfigInitializer, FirebaseRemoteConfigInitializerImp>()
+
+    singleBy<FirebaseRemoteConfigDelegate, FirebaseRemoteConfigDelegateImp>()
 
     single { FirebaseAnalytics.getInstance(get(Qualifiers.applicationContext)) }
-    single<FirebaseAnalyticsLogger> { FirebaseAnalyticsLoggerImp(get()) }
-    single<EventTracker> { EventTrackerImp(get()) }
+    singleBy<FirebaseAnalyticsLogger, FirebaseAnalyticsLoggerImp>()
+    singleBy<EventTracker, EventTrackerImp>()
 
-    factory<PermissionHandler> { PermissionHandlerImp(get()) }
+    factoryBy<PermissionHandler, PermissionHandlerImp>()
 
     single<OkHttpClient>(Qualifiers.noCachingApiOKHTTP) {
         val client = OkHttpClient.Builder()
@@ -120,26 +113,26 @@ val heartCommonImplementationModule: Module = module {
 }
 
 fun heartCommonImplementationModuleWithParams(
-      baseUrl: String?
+      baseUrl: String
 ): Module = module {
 
-    if (baseUrl != null) {
-        single<Retrofit>(Qualifiers.noCachingApiRETROFIT) {
-            Retrofit.Builder()
-                  .baseUrl(baseUrl)
-                  .client(get<OkHttpClient>(Qualifiers.noCachingApiOKHTTP))
-                  .addConverterFactory(GsonConverterFactory.create())
-                  .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                  .build()
-        }
+    single(Qualifiers.baseApiUrl) { baseUrl }
 
-        single<Retrofit>(Qualifiers.cachingApiRETROFIT) {
-            Retrofit.Builder()
-                  .baseUrl(baseUrl)
-                  .client(get<OkHttpClient>(Qualifiers.cachingApiOKHTTP))
-                  .addConverterFactory(GsonConverterFactory.create())
-                  .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                  .build()
-        }
+    single<Retrofit>(Qualifiers.noCachingApiRETROFIT) {
+        Retrofit.Builder()
+              .baseUrl(baseUrl)
+              .client(get<OkHttpClient>(Qualifiers.noCachingApiOKHTTP))
+              .addConverterFactory(GsonConverterFactory.create())
+              .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+              .build()
+    }
+
+    single<Retrofit>(Qualifiers.cachingApiRETROFIT) {
+        Retrofit.Builder()
+              .baseUrl(baseUrl)
+              .client(get<OkHttpClient>(Qualifiers.cachingApiOKHTTP))
+              .addConverterFactory(GsonConverterFactory.create())
+              .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+              .build()
     }
 }

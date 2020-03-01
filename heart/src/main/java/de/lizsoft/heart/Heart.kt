@@ -37,18 +37,19 @@ object Heart : KoinComponent {
             single(Qualifiers.applicationInstance) { application }
         }
 
-        val listOfModules: List<Module> = listOf(
+        val listOfModules: MutableList<Module> = mutableListOf(
               applicationModule,
               heartModule,
               heartCommonModule,
               heartCommonUiModule,
-              heartCommonImplementationModule,
-              heartCommonImplementationModuleWithParams(baseUrl)
+              heartCommonImplementationModule
         )
+
+        if (baseUrl != null) listOfModules.add(heartCommonImplementationModuleWithParams(baseUrl))
 
         if (GlobalContext.getOrNull() == null) {
             startKoin {
-                if (isTesting.not() && BuildConfig.DEBUG) androidLogger(Level.DEBUG)
+                if (isTesting) androidLogger(Level.DEBUG)
                 modules(
                       listOfModules + modules
                 )

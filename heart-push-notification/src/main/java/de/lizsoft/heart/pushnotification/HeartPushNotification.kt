@@ -26,7 +26,7 @@ object HeartPushNotification {
 
         if (GlobalContext.getOrNull() == null) {
             startKoin {
-                if (isTesting.not() && BuildConfig.DEBUG) androidLogger(Level.DEBUG)
+                if (isTesting) androidLogger(Level.DEBUG)
                 heartPushNotificationModule
             }
         } else {

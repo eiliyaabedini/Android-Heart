@@ -6,7 +6,6 @@ dependencies {
     implementation project(':heart-map-tools')
     implementation project(':heart-common')
     implementation project(':heart-common-ui')
-    implementation project(':heart-activitylauncher')
 
     implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
 }

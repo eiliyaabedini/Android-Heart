@@ -4,11 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
-import de.lizsoft.heart.activitylauncher.ActivityLauncher
 import de.lizsoft.heart.common.ui.ui.dialogActivity.DialogActivity
 import de.lizsoft.heart.interfaces.common.Navigator
 import de.lizsoft.heart.interfaces.common.ui.ActivityWithPresenterInterface
 import de.lizsoft.heart.interfaces.dialog.DialogActivityModel
+import de.lizsoft.heart.interfaces.navigator.ActivityLauncher
+import de.lizsoft.heart.interfaces.navigator.ActivityLauncherOpen
 
 class NavigatorImp : Navigator {
 
@@ -18,10 +19,9 @@ class NavigatorImp : Navigator {
         this.activity = activity
     }
 
-    override fun openDialogScreen(model: DialogActivityModel) {
-        ActivityLauncher.with(activity).open(DialogActivity::class.java)
+    override fun getDialogScreen(model: DialogActivityModel): ActivityLauncherOpen {
+        return ActivityLauncher.with(activity).open(DialogActivity::class.java)
               .addArgument(model)
-              .startActivity()
     }
 
     override fun getActivity(): ActivityWithPresenterInterface {

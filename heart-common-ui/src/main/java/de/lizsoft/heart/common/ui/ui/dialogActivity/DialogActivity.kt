@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import de.lizsoft.heart.activitylauncher.retrieveArgument
+import de.lizsoft.heart.interfaces.navigator.retrieveArgument
 import de.lizsoft.heart.common.ui.ActivityWithPresenter
 import de.lizsoft.heart.common.ui.R
 import de.lizsoft.heart.common.ui.ScreenBucket

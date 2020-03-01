@@ -3,7 +3,7 @@ package de.lizsoft.heart.maptools.ui.search
 import android.widget.TextView
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.button.MaterialButton
-import de.lizsoft.heart.activitylauncher.retrieveArgument
+import de.lizsoft.heart.interfaces.navigator.retrieveArgument
 import de.lizsoft.heart.common.extension.dp2px
 import de.lizsoft.heart.common.ui.ActivityWithPresenter
 import de.lizsoft.heart.common.ui.ScreenBucket

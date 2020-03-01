@@ -14,10 +14,10 @@ import de.lizsoft.travelcheck.model.OpenTravelSignInScreen
 import timber.log.Timber
 
 class TravelLandingActivityPresenter(
-      private val heartNavigator: HeartNavigator,
-      private val settingsProvider: SettingsProvider,
-      private val firebaseCurrentUserManager: FirebaseCurrentUserManager,
-      private val reactiveTransformer: ReactiveTransformer
+    private val heartNavigator: HeartNavigator,
+    private val settingsProvider: SettingsProvider,
+    private val firebaseCurrentUserManager: FirebaseCurrentUserManager,
+    private val reactiveTransformer: ReactiveTransformer
 ) : Presenter<TravelLandingActivityPresenter.View>() {
 
     override fun initialise() {
@@ -34,12 +34,12 @@ class TravelLandingActivityPresenter(
 
         if (firebaseCurrentUserManager.isAuthenticated()) {
             if (isSettingsCompleted()) {
-                heartNavigator.navigate(OpenTravelCheckScreen)
+                heartNavigator.getLauncher(OpenTravelCheckScreen)?.startActivity()
             } else {
-                heartNavigator.navigate(OpenTravelOnBoardingScreen)
+                heartNavigator.getLauncher(OpenTravelOnBoardingScreen)?.startActivity()
             }
         } else {
-            heartNavigator.navigate(OpenTravelSignInScreen)
+            heartNavigator.getLauncher(OpenTravelSignInScreen)?.startActivity()
         }
         commonView?.closeScreen()
     }
@@ -47,7 +47,6 @@ class TravelLandingActivityPresenter(
     private fun isSettingsCompleted(): Boolean {
         return true //TODO add checks here to see if we need to send user to onboarding after signup
     }
-
 
     interface View : PresenterView
 

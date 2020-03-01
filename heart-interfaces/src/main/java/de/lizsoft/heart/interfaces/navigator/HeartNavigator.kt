@@ -1,15 +1,13 @@
 package de.lizsoft.heart.interfaces.navigator
 
-import io.reactivex.Maybe
 import de.lizsoft.heart.interfaces.common.Navigator
 
 interface HeartNavigator {
 
-    fun <T> registerNavigation(clazz: Class<T>, navigatorForRegister: (Navigator, T) -> Unit)
+    fun <T> registerNavigation(
+        clazz: Class<T>,
+        navigatorForRegister: (Navigator, T) -> ActivityLauncherOpen
+    )
 
-    fun <T, R> registerMaybeNavigation(clazz: Class<T>, navigatorForRegister: (Navigator, T) -> Maybe<R>)
-
-    fun <T: Any> navigate(model: T)
-
-    fun <T: Any, R> navigateMaybe(model: T): Maybe<R>
+    fun <T : Any> getLauncher(model: T): ActivityLauncherOpen?
 }

@@ -18,7 +18,7 @@ class HeartFirebaseMessagingService : FirebaseMessagingService() {
               remoteMessage.data.keys.joinToString()
         )
 
-        if (HeartPushNotification.shouldReceivePushNotification()) {
+        if (!HeartPushNotification.shouldReceivePushNotification()) {
             Timber.e("Received push notification ignored.")
             return
         }

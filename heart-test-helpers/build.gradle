@@ -13,13 +13,13 @@ dependencies {
     api "io.reactivex.rxjava2:rxkotlin:$RX_KOTLIN_VERSION"
     api "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION"
 
-    api 'junit:junit:4.12'
+    api 'junit:junit:4.13'
     api "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 
     api 'androidx.test:runner:1.2.0'
 
     api "org.koin:koin-test:$KOIN_VERSION"
-    api "org.hamcrest:hamcrest-library:2.1"
+    api 'org.hamcrest:hamcrest-library:2.2'
 
     //To be able to test remove config
     api "com.google.firebase:firebase-config:$FIREBASE_REMOTE_CONFIG"

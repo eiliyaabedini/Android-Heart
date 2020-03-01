@@ -1,6 +1,4 @@
-package de.lizsoft.heart.interfaces.common
-
-import de.lizsoft.heart.interfaces.common.model.BackendError
+package de.lizsoft.travelcheck.error
 
 class BackendException(vararg val backendErrors: BackendError) : Throwable() {
 

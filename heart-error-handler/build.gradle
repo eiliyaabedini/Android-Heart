@@ -1,0 +1,15 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
+apply plugin: 'kotlin-android-extensions'
+
+dependencies {
+    implementation project(':heart-interfaces')
+}
+
+
+ext {
+    moduleName = 'heart-error-handler'
+    moduleDescription = 'heart-error-handler desc'
+}
+apply from: "$project.rootProject.projectDir/gradle/androidLibraryPublish.gradle"

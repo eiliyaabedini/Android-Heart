@@ -5,7 +5,6 @@ apply from: "$project.rootProject.projectDir/gradle/defaultAndroidLib.gradle"
 dependencies {
     implementation project(':heart-viewstatemanager')
     implementation project(':heart-common')
-    implementation project(':heart-activitylauncher')
 
     api "androidx.appcompat:appcompat:$APPCOMPAT"
 //    api "androidx.appcompat:appcompat-resources:$APPCOMPAT"
@@ -30,7 +29,7 @@ dependencies {
 //  https://github.com/omegasoft7/RecyclerViewSnap
     api 'com.github.rubensousa:gravitysnaphelper:2.0'
 
-    api 'com.facebook.shimmer:shimmer:0.4.0'
+    api 'com.facebook.shimmer:shimmer:0.5.0'
 
     //https://github.com/Tapadoo/Alerter
     implementation "com.tapadoo.android:alerter:4.0.3"

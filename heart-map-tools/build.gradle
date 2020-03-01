@@ -9,7 +9,7 @@ dependencies {
 
     api "com.google.android.gms:play-services-base:$PLAY_SERVICE_BASE"
     api "com.google.android.gms:play-services-maps:$PLAY_SERVICE_MAP"
-    api 'com.google.maps.android:android-maps-utils:0.5'
+    api 'com.google.maps.android:android-maps-utils:0.6.2'
 
     api "com.google.android.gms:play-services-location:$GOOGLE_LOCATION"
     api ("com.google.android.libraries.places:places:$GOOGLE_PLACES") {

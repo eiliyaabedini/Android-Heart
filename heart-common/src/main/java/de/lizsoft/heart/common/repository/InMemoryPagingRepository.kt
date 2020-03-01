@@ -4,23 +4,23 @@ import androidx.annotation.VisibleForTesting
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
-abstract class InMemoryPagingRepository<K, T> {
+abstract class InMemoryPagingRepository<P, T> {
 
-    private val items: MutableMap<K, MutableList<T>> = mutableMapOf()
+    private val items: MutableMap<P, MutableList<T>> = mutableMapOf()
     private var subject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
     fun observe(): Observable<Unit> = subject
 
-    fun getAllItemsForPage(pageNumber: K): List<T>? = items[pageNumber]?.toMutableList()
+    fun getAllItemsForPage(pageNumber: P): List<T>? = items[pageNumber]?.toMutableList()
 
     fun getAllItems(): List<T> = items.values.flatten()
 
-    fun setPageItems(newItems: List<T>, pageNumber: K) {
+    fun setPageItems(newItems: List<T>, pageNumber: P) {
         items[pageNumber] = newItems.toMutableList()
         subject.onNext(Unit)
     }
 
-    fun addItemsToPage(newItems: List<T>, pageNumber: K) {
+    fun addItemsToPage(newItems: List<T>, pageNumber: P) {
         if (items[pageNumber] == null) {
             items[pageNumber] = mutableListOf()
         }
@@ -30,21 +30,21 @@ abstract class InMemoryPagingRepository<K, T> {
     }
 
     @VisibleForTesting
-    fun removeItemsFromPage(pageNumber: K, removeItems: List<T>) {
+    fun removeItemsFromPage(pageNumber: P, removeItems: List<T>) {
         if (items[pageNumber] == null) return
 
         items[pageNumber]!!.removeAll(removeItems)
         subject.onNext(Unit)
     }
 
-    protected fun removeItemFromPage(pageNumber: K, removeItem: T) {
+    protected fun removeItemFromPage(pageNumber: P, removeItem: T) {
         if (items[pageNumber] == null) return
 
         items[pageNumber]!!.remove(removeItem)
         subject.onNext(Unit)
     }
 
-    protected fun removeItemFromPageByIndex(pageNumber: K, index: Int) {
+    protected fun removeItemFromPageByIndex(pageNumber: P, index: Int) {
         if (items[pageNumber] == null) return
 
         items[pageNumber]!!.removeAt(index)
@@ -55,5 +55,4 @@ abstract class InMemoryPagingRepository<K, T> {
         items.clear()
         subject.onNext(Unit)
     }
-
 }

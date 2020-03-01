@@ -20,7 +20,11 @@ import de.lizsoft.heart.common.extension.mergeDateAndTime
 import de.lizsoft.heart.common.ui.factory.DialogFactory
 import de.lizsoft.heart.common.ui.ui.bottomsheet.TextBottomSheet
 import de.lizsoft.heart.common.ui.ui.bottomsheet.model.TextBottomSheetModel
-import de.lizsoft.heart.interfaces.common.*
+import de.lizsoft.heart.interfaces.common.DateUtils
+import de.lizsoft.heart.interfaces.common.DrawableUtils
+import de.lizsoft.heart.interfaces.common.Navigator
+import de.lizsoft.heart.interfaces.common.ReactiveTransformer
+import de.lizsoft.heart.interfaces.common.TextUtils
 import de.lizsoft.heart.interfaces.common.presenter.PresenterAction
 import de.lizsoft.heart.interfaces.common.presenter.PresenterCommonAction
 import de.lizsoft.heart.interfaces.common.presenter.PresenterCommonView
@@ -28,6 +32,7 @@ import de.lizsoft.heart.interfaces.common.ui.ActivityResult
 import de.lizsoft.heart.interfaces.common.ui.ActivityWithPresenterInterface
 import de.lizsoft.heart.interfaces.common.ui.ScreenBucketModel
 import de.lizsoft.heart.interfaces.dialog.DialogActivityModel
+import de.lizsoft.heart.interfaces.navigator.ActivityLauncherOpen
 import de.lizsoft.heart.viewstatemanager.StateManager
 import de.lizsoft.heart.viewstatemanager.ViewState
 import io.reactivex.Maybe
@@ -41,10 +46,11 @@ import org.koin.core.scope.Scope
 import timber.log.Timber
 import java.io.Serializable
 import java.sql.Time
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 abstract class ActivityWithPresenter : AppCompatActivity(),
-      ActivityWithPresenterInterface {
+    ActivityWithPresenterInterface {
 
     protected val disposables = CompositeDisposable()
 
@@ -109,9 +115,9 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
         }
 
         override fun makeItemsDialog(
-              title: String,
-              vararg items: Pair<String, () -> Unit>,
-              finally: () -> Unit
+            title: String,
+            vararg items: Pair<String, () -> Unit>,
+            finally: () -> Unit
         ) {
             runOnUiThread {
                 dialogFactory.makeItemsDialog(
@@ -124,9 +130,9 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
         }
 
         override fun makeMultiSelectItemsDialog(
-              title: String,
-              vararg items: Pair<String, Boolean>,
-              finally: (List<String>) -> Unit
+            title: String,
+            vararg items: Pair<String, Boolean>,
+            finally: (List<String>) -> Unit
         ) {
             runOnUiThread {
                 dialogFactory.makeMultiSelectItemsDialog(
@@ -247,8 +253,8 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
             navigator.openUrl(url)
         }
 
-        override fun openDialogScreen(model: DialogActivityModel) {
-            navigator.openDialogScreen(model)
+        override fun getDialogScreen(model: DialogActivityModel): ActivityLauncherOpen {
+            return navigator.getDialogScreen(model)
         }
     }
 
@@ -412,7 +418,6 @@ abstract class ActivityWithPresenter : AppCompatActivity(),
     override fun observeActivityResult(): Observable<ActivityResult> = activityResults
           .filter { it != ActivityResult.EMPTY }
           .doOnNext { activityResults.onNext(ActivityResult.EMPTY) }
-
 
     override fun finishActivity() {
         finish()

@@ -4,13 +4,17 @@ import android.app.Application
 import com.facebook.buck.android.support.exopackage.DefaultApplicationLike
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo
 import de.lizsoft.heart.Heart
-import de.lizsoft.heart.activitylauncher.ActivityLauncher
 import de.lizsoft.heart.authentication.HeartAuthentication
+import de.lizsoft.heart.common.event.DataEvent
+import de.lizsoft.heart.common.event.EventManager
 import de.lizsoft.heart.deeplink.HeartDeepLink
+import de.lizsoft.heart.errorhandler.HeartErrorHandler
+import de.lizsoft.heart.interfaces.navigator.ActivityLauncher
 import de.lizsoft.heart.interfaces.navigator.HeartNavigator
 import de.lizsoft.heart.pushnotification.HeartPushNotification
 import de.lizsoft.travelcheck.dailycheck.TravelDailyCheckActivity
 import de.lizsoft.travelcheck.di.travelCheckModule
+import de.lizsoft.travelcheck.error.BackendException
 import de.lizsoft.travelcheck.model.OpenTravelCheckScreen
 import de.lizsoft.travelcheck.model.OpenTravelDailyCheckScreen
 import de.lizsoft.travelcheck.model.OpenTravelOnBoardingScreen
@@ -26,6 +30,7 @@ import timber.log.Timber
 class App(private val application: Application) : DefaultApplicationLike(), KoinComponent {
 
     private val heartNavigator: HeartNavigator by lazy { get<HeartNavigator>() }
+    private val eventManager: EventManager by lazy { get<EventManager>() }
 
     override fun onCreate() {
         super.onCreate()
@@ -42,10 +47,10 @@ class App(private val application: Application) : DefaultApplicationLike(), Koin
               )
         )
         Heart.addOkHttpInterceptors(listOf(get<AuthenticationInterceptor>()))
-//        HeartMap.bind()
-//        HeartMapUI.bind(heartNavigator)
+        //        HeartMap.bind()
+        //        HeartMapUI.bind(heartNavigator)
         HeartDeepLink.bind {
-            heartNavigator.navigate(OpenTravelDailyCheckScreen)
+            heartNavigator.getLauncher(OpenTravelDailyCheckScreen)?.startActivity()
         }
         HeartPushNotification.bind(
               listOfKeys = emptyList(),
@@ -57,6 +62,17 @@ class App(private val application: Application) : DefaultApplicationLike(), Koin
               signedInScreenObject = OpenTravelCheckScreen
         )
 
+        HeartErrorHandler.bind(
+              isTesting = BuildConfig.DEBUG,
+              dispatcher = { throwable ->
+                  if (throwable is BackendException) {
+                      if (throwable.isAuthenticationError()) {
+                          eventManager.notify(DataEvent.NotAuthenticated)
+                      }
+                  }
+              }
+        )
+
         registerNavigations()
     }
 
@@ -65,19 +81,16 @@ class App(private val application: Application) : DefaultApplicationLike(), Koin
               OpenTravelCheckScreen::class.java
         ) { navigator, _ ->
             ActivityLauncher.with(navigator.getActivity()).open(TravelCheckActivity::class.java)
-                  .startActivity()
         }
         heartNavigator.registerNavigation(
               OpenTravelDailyCheckScreen::class.java
         ) { navigator, _ ->
             ActivityLauncher.with(navigator.getActivity()).open(TravelDailyCheckActivity::class.java)
-                  .startActivity()
         }
         heartNavigator.registerNavigation(
               OpenTravelOnBoardingScreen::class.java
         ) { navigator, _ ->
             ActivityLauncher.with(navigator.getActivity()).open(TravelOnBoardingActivity::class.java)
-                  .startActivity()
         }
 
         heartNavigator.registerNavigation(
@@ -86,7 +99,6 @@ class App(private val application: Application) : DefaultApplicationLike(), Koin
             ActivityLauncher.with(navigator.getActivity())
                   .open(TravelSignInActivity::class.java)
                   .closeOtherActivities()
-                  .startActivity()
         }
     }
 }

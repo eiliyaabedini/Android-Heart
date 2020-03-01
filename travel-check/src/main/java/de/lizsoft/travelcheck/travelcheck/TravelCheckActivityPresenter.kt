@@ -19,10 +19,10 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class TravelCheckActivityPresenter(
-      private val mainTravelRepository: TravelMainRepository,
-      private val settingsProvider: SettingsProvider,
-      private val heartNavigator: HeartNavigator,
-      private val reactiveTransformer: ReactiveTransformer
+    private val mainTravelRepository: TravelMainRepository,
+    private val settingsProvider: SettingsProvider,
+    private val heartNavigator: HeartNavigator,
+    private val reactiveTransformer: ReactiveTransformer
 ) : Presenter<TravelCheckActivityPresenter.View>() {
 
     private var isFilterFavourites: Boolean = false
@@ -48,7 +48,7 @@ class TravelCheckActivityPresenter(
                       }
 
                       is Action.DailyCheckButtonClicked -> {
-                          heartNavigator.navigate(OpenTravelDailyCheckScreen)
+                          heartNavigator.getLauncher(OpenTravelDailyCheckScreen)?.startActivity()
                       }
 
                       is Action.ListContentFavourites -> {
@@ -83,9 +83,9 @@ class TravelCheckActivityPresenter(
 
                       is Action.SettingsButtonClicked -> {
                           if (BuildConfig.DEBUG) {
-                              heartNavigator.navigate(
+                              heartNavigator.getLauncher(
                                     OpenTravelOnBoardingScreen
-                              )
+                              )?.startActivity()
                           }
                       }
 
@@ -186,7 +186,11 @@ class TravelCheckActivityPresenter(
     private fun updateList(forceUpdate: Boolean = false, notifyAdapter: Boolean = true) {
         commonView?.showContentLoading()
 
-        mainTravelRepository.getAllDestinations(forceUpdate, isFilterFavourites, settingsProvider.getFlexibilityFeatureEnable())
+        mainTravelRepository.getAllDestinations(
+              forceUpdate,
+              isFilterFavourites,
+              settingsProvider.getFlexibilityFeatureEnable()
+        )
               .doOnSuccess { items ->
                   view?.showContents(items, notifyAdapter)
 
@@ -196,10 +200,10 @@ class TravelCheckActivityPresenter(
     }
 
     private fun fetchAndValidateOffers(
-          repositoryType: RepositoryType,
-          numberOfOffersToValidate: Int,
-          cityId: Int,
-          hotelId: Int
+        repositoryType: RepositoryType,
+        numberOfOffersToValidate: Int,
+        cityId: Int,
+        hotelId: Int
     ) {
         commonView?.showContentLoading()
 

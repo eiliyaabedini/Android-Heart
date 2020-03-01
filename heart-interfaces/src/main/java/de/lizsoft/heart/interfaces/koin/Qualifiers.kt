@@ -9,6 +9,7 @@ import org.koin.core.scope.Scope
 
 object Qualifiers {
     val authenticatedUser: Qualifier = named("authenticatedUser")
+    val baseApiUrl: Qualifier = named("baseApiUrl")
 
     val noCachingApiOKHTTP: Qualifier = named("noCachingApiOKHTTP")
     val cachingApiOKHTTP: Qualifier = named("cachingApiOKHTTP")

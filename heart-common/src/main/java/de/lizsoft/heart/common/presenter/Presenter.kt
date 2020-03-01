@@ -18,7 +18,7 @@ import timber.log.Timber
 
 abstract class Presenter<V : PresenterView> {
 
-    private val disposables = CompositeDisposable()
+    protected val disposables = CompositeDisposable()
     protected val disposablesVisibleView = CompositeDisposable()
 
     private var _view: V? = null

@@ -1,5 +1,6 @@
 package de.lizsoft.heart.maptools.ui.search
 
+import androidx.core.app.ActivityCompat.startActivityForResult
 import de.lizsoft.heart.common.presenter.Presenter
 import de.lizsoft.heart.interfaces.common.ReactiveTransformer
 import de.lizsoft.heart.interfaces.common.presenter.PresenterAction
@@ -115,12 +116,11 @@ class SearchAddressPresenter(
     }
 
     private fun goToSelectOnMap(addressTypename: String?) {
-        heartNavigator.navigateMaybe<OpenSelectAddressOnMap, SearchAddressPrediction>(
-              OpenSelectAddressOnMap(addressTypename)
-        )
-              .doOnSuccess {
+        heartNavigator.getLauncher(OpenSelectAddressOnMap(addressTypename))
+              ?.startActivityForResult()
+              ?.doOnSuccess {
                   commonView?.closeScreenWithResult(it)
-              }.subscribeSafeWithShowingErrorContent()
+              }?.subscribeSafeWithShowingErrorContent()
     }
 
     private fun fetchCurrentLocation() {
