@@ -60,8 +60,8 @@ abstract class Presenter<V : PresenterView> {
         disposablesVisibleView.clear()
     }
 
-    protected fun <T> Observable<T>.subscribeSafeWithShowingErrorContent(onNext: ((T) -> Unit)? = null) {
-        disposables += subscribe(
+    protected fun <T> Observable<T>.subscribeSafeWithShowingErrorContent(onNext: ((T) -> Unit)? = null): Disposable {
+        val disposable = subscribe(
               if (onNext == null) {
                   Functions.emptyConsumer<T>()
               } else {
@@ -74,10 +74,13 @@ abstract class Presenter<V : PresenterView> {
               Functions.EMPTY_ACTION,
               Functions.emptyConsumer<Disposable>()
         )
+
+        disposables += disposable
+        return disposable
     }
 
-    protected fun <T> Observable<ResponseResult<T>>.subscribeSafeResponseWithShowingErrorContent() {
-        disposables += doOnFailure {
+    protected fun <T> Observable<ResponseResult<T>>.subscribeSafeResponseWithShowingErrorContent(): Disposable {
+        val disposable = doOnFailure {
             it.printStackTrace()
             commonView?.showContentError()
         }
@@ -90,20 +93,26 @@ abstract class Presenter<V : PresenterView> {
                     Functions.EMPTY_ACTION,
                     Functions.emptyConsumer<Disposable>()
               )
+
+        disposables += disposable
+        return disposable
     }
 
-    protected fun <T> Single<T>.subscribeSafeWithShowingErrorContent() {
-        disposables += subscribe(
+    protected fun <T> Single<T>.subscribeSafeWithShowingErrorContent(): Disposable {
+        val disposable = subscribe(
               Functions.emptyConsumer<T>(),
               Consumer<Throwable> {
                   it.printStackTrace()
                   commonView?.showContentError()
               }
         )
+
+        disposables += disposable
+        return disposable
     }
 
-    protected fun <T> Single<ResponseResult<T>>.subscribeSafeResponseWithShowingErrorContent() {
-        disposables += doOnFailure {
+    protected fun <T> Single<ResponseResult<T>>.subscribeSafeResponseWithShowingErrorContent(): Disposable {
+        val disposable = doOnFailure {
             it.printStackTrace()
             commonView?.showContentError()
         }
@@ -114,10 +123,13 @@ abstract class Presenter<V : PresenterView> {
                         commonView?.showContentError()
                     }
               )
+
+        disposables += disposable
+        return disposable
     }
 
-    protected fun <T> Maybe<T>.subscribeSafeWithShowingErrorContent() {
-        disposables += subscribe(
+    protected fun <T> Maybe<T>.subscribeSafeWithShowingErrorContent(): Disposable {
+        val disposable = subscribe(
               Functions.emptyConsumer<T>(),
               Consumer<Throwable> {
                   it.printStackTrace()
@@ -125,10 +137,13 @@ abstract class Presenter<V : PresenterView> {
               },
               Functions.EMPTY_ACTION
         )
+
+        disposables += disposable
+        return disposable
     }
 
-    protected fun <T> Maybe<ResponseResult<T>>.subscribeSafeResponseWithShowingErrorContent() {
-        disposables += doOnFailure {
+    protected fun <T> Maybe<ResponseResult<T>>.subscribeSafeResponseWithShowingErrorContent(): Disposable {
+        val disposable = doOnFailure {
             it.printStackTrace()
             commonView?.showContentError()
         }
@@ -140,15 +155,21 @@ abstract class Presenter<V : PresenterView> {
                     },
                     Functions.EMPTY_ACTION
               )
+
+        disposables += disposable
+        return disposable
     }
 
-    protected fun Completable.subscribeSafeWithShowingErrorContent() {
-        disposables += subscribe(
+    protected fun Completable.subscribeSafeWithShowingErrorContent(): Disposable {
+        val disposable = subscribe(
               Functions.EMPTY_ACTION,
               Consumer<Throwable> {
                   it.printStackTrace()
                   commonView?.showContentError()
               }
         )
+
+        disposables += disposable
+        return disposable
     }
 }
